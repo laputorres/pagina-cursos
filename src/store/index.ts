@@ -1,39 +1,31 @@
+// auth.js
 import { createStore } from 'vuex';
-import { auth } from '@/FirebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default createStore({
   state: {
     user: null,
-    error: null, // Agregar un estado para manejar errores de autenticación
+    isAuthenticated: false,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
-    },
-    setError(state, error) {
-      state.error = error;
+      state.isAuthenticated = !!user;
     },
   },
   actions: {
-    signInWithEmail({ commit }, { email, password }) {
-      // Llama a la función signInWithEmailAndPassword de auth
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Haz algo con userCredential si es necesario
-          const user = userCredential.user;
-          commit('setUser', user);
-        })
-        .catch((error) => {
-          // Maneja errores aquí
-          console.error('Error al iniciar sesión:', error.message);
-        });
+    login({ commit }, user) {
+      // Lógica de inicio de sesión (puedes llamar a tu función register aquí también)
+      // Después de autenticar al usuario, actualiza el estado usando la mutación
+      commit('setUser', user);
     },
-    // Otras acciones si es necesario
+    logout({ commit }) {
+      // Lógica de cierre de sesión
+      // Después de cerrar sesión, actualiza el estado usando la mutación
+      commit('setUser', null);
+    },
   },
-  
   getters: {
-    isAuthenticated: (state) => !!state.user,
-    // Otros getters si es necesario
+    currentUser: state => state.user,
+    isAuthenticated: state => state.isAuthenticated,
   },
 });

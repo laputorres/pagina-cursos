@@ -194,6 +194,7 @@ import { auth } from '@/FirebaseConfig';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useStore } from 'vuex';
 
 export default {
   setup() {
@@ -201,10 +202,12 @@ export default {
     const email = ref('');
     const password = ref('');
     const router = useRouter();
+    const store = useStore();
 
     const register = async() => {
       try{
         await createUserWithEmailAndPassword(auth, email.value, password.value);
+        store.commit('setUser', auth.currentUser);
         router.push('/dashboard');
       } catch (error){
         console.log(error.message);

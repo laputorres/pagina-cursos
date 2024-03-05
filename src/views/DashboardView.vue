@@ -56,7 +56,7 @@
                   <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
                   <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
                   <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-                  <form method="POST" action="#" role="none">
+                  <form @submit.prevent="mysignOut" action="#" role="none">
                     <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
                   </form>
                 </div>
@@ -75,27 +75,42 @@
     </div>
   </template>
   <script>
+  import { signOut } from 'firebase/auth';
+  import { auth } from '@/FirebaseConfig';
+  import router from '@/router';
+  import { ref } from 'vue';
+  
   export default {
-    data() {
+    setup() {
+      const showDropDown = ref(false);
+      const showSide = ref(true);
+  
+      const toggleSideBar = () => {
+        showSide.value = !showSide.value;
+      };
+  
+      const toggleDrop = () => {
+        showDropDown.value = !showDropDown.value;
+      };
+  
+      const mysignOut = async () => {
+        try {
+          await signOut(auth);
+          router.push('/');
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+  
       return {
-        showDropDown: false,
-        showSide: true
-      }
+        showDropDown,
+        showSide,
+        toggleSideBar,
+        toggleDrop,
+        mysignOut,
+      };
     },
-    methods: {
-      // hide show side bar
-      toggleSideBar() {
-        this.showSide = !this.showSide
-  
-      },
-      // toggle user 
-      toggleDrop() {
-        this.showDropDown = !this.showDropDown
-  
-      }
-    }
-  
-  }
+  };
   </script>
   
   <style>

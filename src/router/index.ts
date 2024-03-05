@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/homeView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProfileDashboard from '../views/profileDashboard.vue'
-import LoginView from '../views/loginView.vue'
+import signinComponent from '@/components/login/signinComponent.vue'
 import RegisterComponent from '@/components/login/RegisterComponent.vue'
 
 
@@ -15,7 +15,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: signinComponent
   },
   {
     path: '/register',
@@ -28,13 +28,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile',
     name: 'profileDashboard',
     component: ProfileDashboard,
+    meta: {
+      requiresAuth: true, 
+    },
   },
   {
     name: 'Dashboard',
     path: '/dashboard',
     component: DashboardView,
     meta: {
-      requiresAuth: true, // Agrega esta meta para indicar que la ruta requiere autenticación
+      requiresAuth: true, 
     },
     
   },
@@ -46,4 +49,4 @@ const router = createRouter({
   routes
 })
 
-export default router
+export default router;
