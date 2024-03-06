@@ -138,7 +138,7 @@ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
                 </div>
 
                 <!-- Formulario -->
-                <form @submit.prevent="register" class="mb-30">
+                <form @submit.prevent="login" class="mb-30">
                   <!-- Input de correo electrónico -->
                   <div class="mb-4">
                     <input v-model="email" type="email" id="email"
@@ -204,17 +204,21 @@ export default {
     const router = useRouter();
     const store = useStore();
 
-    const register = async() => {
+    const login = async() => {
       try{
         await signInWithEmailAndPassword(auth, email.value, password.value);
-        store.commit('setUser', auth.currentUser);
-        router.push('/dashboard');
+        const user = auth.currentUser;
+        console.log(store.state);
+        console.log('Usuario después de iniciar sesión:', user);
+        await store.dispatch('login', user);
+        console.log('Estado de Vuex después de iniciar sesión:', store.state);
+        router.replace('/dashboard');
       } catch (error){
         console.log(error.message);
       }
     };
 
-    return { email, password, register}
+    return { email, password, login}
   },
 
 

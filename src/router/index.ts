@@ -4,7 +4,9 @@ import DashboardView from '../views/DashboardView.vue'
 import ProfileDashboard from '../views/profileDashboard.vue'
 import signinComponent from '@/components/login/signinComponent.vue'
 import RegisterComponent from '@/components/login/RegisterComponent.vue'
+import store from '@/store/index'
 
+const isAuthenticated = () => store.getters.isAuthenticated;
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -31,6 +33,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       requiresAuth: true, 
     },
+    
   },
   {
     name: 'Dashboard',
@@ -47,6 +50,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !isAuthenticated()) {
+    next({ name: 'login' });  // Redirige a la página de inicio de sesión si no está autenticado
+  } else {
+    next();  // Continúa con la navegación normal
+  }
+});
 
 export default router;

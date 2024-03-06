@@ -8,12 +8,13 @@ export default createStore({
   },
   mutations: {
     setUser(state, user) {
+      console.log('Mutación setUser llamada con:', user);
       state.user = user;
       state.isAuthenticated = !!user;
     },
   },
   actions: {
-    login({ commit }, user) {
+     login({ commit }, user) {
       // Lógica de inicio de sesión (puedes llamar a tu función register aquí también)
       // Después de autenticar al usuario, actualiza el estado usando la mutación
       commit('setUser', user);
@@ -26,6 +27,10 @@ export default createStore({
   },
   getters: {
     currentUser: state => state.user,
-    isAuthenticated: state => state.isAuthenticated,
+    isAuthenticated: state => {
+      console.log('Getter isAuthenticated se está llamando con el estado:', state);
+      return state.isAuthenticated;
+    },
   },
+
 });

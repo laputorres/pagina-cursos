@@ -2,7 +2,7 @@
     <div class="w-screen h-screen flex">
       <!-- Side bar -->
       <div class="w-[400px] h-full bg-gray-100 border-b text-white" v-show="showSide">
-        <div class="h-[50px] bg-gray-900 flex justify-start  items-center ">
+        <div class="h-[80px] bg-gray-900 flex justify-start  items-center ">
           <div class="px-[20px]">
             <h3 class="font-bold text-xl">Admin Dashboard</h3>
           </div>
@@ -10,7 +10,7 @@
         <!-- aqui va el menu -->
       </div>
       <div class="w-full h-full bg-gray-400">
-        <div class="h-[50px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b ">
+        <div class="h-[80px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b ">
           <!-- Hambuger menu -->
           <div class="cursor-pointer w-[30px]" @click="toggleSideBar">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class=" w-[25px] h-[25px]">
@@ -41,13 +41,13 @@
               </form>
             </div>
             <!-- User login -->
-            <div class="w-[200px] ">
-              <div class="flex items-center cursor-pointer justify-start space-x-4" @click="toggleDrop">
-                <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="../assets/logo.png" alt="">
-                <div class="font-semibold dark:text-white text-left">
-                  <div>Madona ,Dev OP</div>
-                  <div class="text-xs text-gray-500 dark:text-gray-400">Admin</div>
+            <div class="w-[150px] ">
+              <div class="flex items-center cursor-pointer justify-start space-x-2" @click="toggleDrop">
+                <div class="font-semibold dark:text-black text-left">
+                  <div>{{ nombreUsuarioLogeado }}</div>
+                  
                 </div>
+                <img class="w-10 h-10 rounded-full border-2 border-gray-50" src="../assets/logo.png" alt="">
               </div>
               <!-- Drop down -->
               <div v-show="showDropDown" class="absolute right-[10px] z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
@@ -66,8 +66,12 @@
         </div>
         <div class="h-[calc(100vh-50px)] bg-gray-50 p-[20px]">
           <div class="border border-gray-300 rounded-md p-[20px] h-full">
-            <h1>hola</h1>
+            
             <router-view></router-view>
+            
+     
+    
+   
           </div>
         </div>
       </div>
@@ -78,13 +82,51 @@
   import { signOut } from 'firebase/auth';
   import { auth } from '@/FirebaseConfig';
   import router from '@/router';
-  import { ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
+import { useStore } from 'vuex';
+import { collection, onSnapshot, query, where, getDocs } from 'firebase/firestore';
+import { useFirestore } from 'vuefire';
+import { useCollection } from 'vuefire';
+import { useDocument } from 'vuefire';
   
   export default {
+    computed: {
+  user() {
+    return this.$store.getters.currentUser;
+  },
+},
     setup() {
       const showDropDown = ref(false);
       const showSide = ref(true);
+      const store = useStore();
+      const uid = auth.currentUser.uid;
+      const db = useFirestore();
+      const usersCollection = collection(db, 'usuarios');
+      const nombreUsuarioLogeado = ref(''); 
+      
+     
+      const queryRef = query(usersCollection, where('uid', '==', uid));
+    const result = ref([]);
+
+    const fetchData = async () => {
+  const querySnapshot = await getDocs(queryRef);
+  const userData = querySnapshot.docs.map(doc => doc.data());
   
+  if (userData.length > 0) {
+    nombreUsuarioLogeado.value = userData[0].name;
+  } else {
+    nombreUsuarioLogeado.value = 'Nombre no encontrado';
+  }
+};
+
+
+    // Llama a la función fetchData para ejecutar la consulta
+    fetchData();
+
+
+     
+
+  // ... abrir y cerrar menu
       const toggleSideBar = () => {
         showSide.value = !showSide.value;
       };
@@ -92,7 +134,7 @@
       const toggleDrop = () => {
         showDropDown.value = !showDropDown.value;
       };
-  
+  // ... cerrar sesion
       const mysignOut = async () => {
         try {
           await signOut(auth);
@@ -108,6 +150,8 @@
         toggleSideBar,
         toggleDrop,
         mysignOut,
+        nombreUsuarioLogeado,
+        uid
       };
     },
   };

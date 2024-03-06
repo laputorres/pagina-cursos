@@ -139,6 +139,11 @@ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
 
                 <!-- Formulario -->
                 <form @submit.prevent="register" class="mb-30">
+                  <div class="mb-4">
+                    <input v-model="name" type="text" id="name"
+                      class="w-full h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 focus:border-blue-400"
+                      placeholder="Your name" />
+                  </div>
                   <!-- Input de correo electrónico -->
                   <div class="mb-4">
                     <input v-model="email" type="email" id="email"
@@ -195,26 +200,40 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useStore } from 'vuex';
+import { collection, addDoc } from 'firebase/firestore';
+import {  useFirestore } from 'vuefire';
 
 export default {
   setup() {
 
+    const name = ref('');
     const email = ref('');
     const password = ref('');
     const router = useRouter();
     const store = useStore();
+    const db = useFirestore();
+    const usersCollection = collection(db, 'usuarios'); 
+    
 
-    const register = async() => {
-      try{
+    const register = async () => {
+      try {
         await createUserWithEmailAndPassword(auth, email.value, password.value);
         store.commit('setUser', auth.currentUser);
+        const user = auth.currentUser;
+        const uid = user.uid;
+        await addDoc(usersCollection, {
+        uid: uid,
+        name: name.value,
+        email: email.value,
+       });
+
         router.push('/dashboard');
-      } catch (error){
+      } catch (error) {
         console.log(error.message);
       }
     };
 
-    return { email, password, register}
+    return { email, password, name, register }
   },
 
 

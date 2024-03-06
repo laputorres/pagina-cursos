@@ -3,14 +3,35 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import { firestorePlugin } from 'vuefire';
-import store from './store/index';
+import store from './store';
 import './assets/css/app.css';
 import { auth } from './FirebaseConfig';
-
+import { onAuthStateChanged } from 'firebase/auth';
+import PrimeVue from 'primevue/config'
+import MegaMenu from 'primevue/megamenu';
 
 const app = createApp(App);
 const myRouter = router;
 
+const waitForAuth = new Promise<void>((resolve) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log('Estás logeado');
+      store.dispatch('login', user);
+    }
+    resolve();  // Pasa void como argumento
+  });
+});
+
+// Esperar a que la autenticación se complete antes de montar la aplicación
+waitForAuth.then(() => {
+  // Imprimir el estado actual del store antes de montar la aplicación
+  console.log('Estado actual del store:', store.state);
+
+  // Montar la aplicación con el store y el router
+  app.use(store).use(router).mount('#app');
+  console.log('Estado inicial del store:', store.state);
+});
 
 myRouter.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated;
@@ -27,6 +48,8 @@ myRouter.beforeEach((to, from, next) => {
   }
 });
 
+
+
 // Usa el plugin firestorePlugin
 app.use(firestorePlugin);
 
@@ -38,5 +61,9 @@ app.use({
   },
 });
 
-app.use(store).use(router);
-app.mount('#app');
+app.use(PrimeVue, {
+  unstyled: true,
+  
+});
+
+app.component('MegaMenu', MegaMenu)
