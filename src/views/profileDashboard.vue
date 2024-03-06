@@ -2,7 +2,7 @@
   <div id="">
 
       <!-- breadcrumb -->
-      <navbarUser></navbarUser>
+      <navbarIndex></navbarIndex>
           <!-- breadcrumb end -->
 
          
@@ -12,11 +12,11 @@
 
 <script>
 import { useStore } from 'vuex';
-import navbarUser from '@/components/navbars/navbarUser.vue';
+import navbarIndex from '@/components/navbars/navbarIndex.vue';
 
 export default {
  components:{
-  navbarUser
+  navbarIndex
  }
 }
 </script>

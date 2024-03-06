@@ -24,8 +24,10 @@
                 </ul>
                 <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
                     
-
-                    <li class="flex items-center">
+                    <li v-if="userAuthenticade">
+                        <navbarCardUser  />
+                    </li>
+                    <li v-else class="flex items-center">
                         <router-link to="/login"
                             class="bg-emerald-500 text-white active:bg-emerald-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150">
                             <i class="fas fa-arrow-alt-circle-down"></i> LOGIN
@@ -43,10 +45,15 @@
 
 <script>
 import { RouterLink } from 'vue-router';
+import navbarCardUser from './navbarCardUser.vue';
+import {auth} from '../../FirebaseConfig.ts';
+
 export default {
     data() {
         return {
             navbarOpen: false,
+            userAuthenticade: false,
+          
         };
     },
     methods: {
@@ -55,5 +62,14 @@ export default {
         },
     },
 
+    mounted() {
+        // Escucha los cambios en el estado de autenticación
+        auth.onAuthStateChanged((user) => {
+            this.userAuthenticade = user !== null;
+        });
+    },
+    components: {
+    navbarCardUser,
+  },
 };
 </script>
