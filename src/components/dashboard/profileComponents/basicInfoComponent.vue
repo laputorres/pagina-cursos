@@ -1,0 +1,145 @@
+<template>
+    <fwb-heading tag="h4" color="text-blue-400" class="w-full mb-10 text-start">Basic Info</fwb-heading>
+    <form @submit.prevent="updateCurrentUser" class="w-full flex flex-wrap gap-2 justify-around">
+
+        <fwb-input v-model="name" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60 " label="First name"
+            placeholder="enter your first name" required />
+
+        <fwb-input v-model="userLastname" label="Last name" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
+            placeholder="enter your last name" required />
+
+        <fwb-input v-model="userEmail" label="email" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
+            placeholder="enter your email" required />
+        <fwb-input v-model="userPhone" label="Phone Number" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
+            placeholder="enter your email" required />
+
+        <fwb-select v-model="selectedCountry" :options="countries" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
+            label="Select a Lenguage" />
+
+        <fwb-select v-model="selectedGender" :options="genero" class="w-full sm:w-1/2 text-start mb-2 md:w-1/3 lg:w-40 xl:w-60"
+            label="I´m" />
+
+        <fwb-button  class="w-full mt-10 bg-blue-400 sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] self-center" type="submit">Submit</fwb-button>
+    </form>
+    <fwb-alert v-if="showAlert" class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon type="success">
+        Data saved successfully.
+    </fwb-alert>
+</template>
+
+<script>
+import { ref } from 'vue'
+import { FwbInput, FwbSelect, FwbButton, FwbHeading, FwbAlert } from 'flowbite-vue'
+import { onMounted, watch } from 'vue'
+import { obtenerDatosUsuario } from '@/services/firestoreServices'
+import { auth, db } from '../../../FirebaseConfig.ts'
+
+import { getFirestore, collection, query, where, updateDoc, getDoc, doc } from "firebase/firestore";
+
+export default {
+    components: {
+        FwbInput,
+        FwbButton,
+        FwbSelect,
+        FwbHeading,
+        FwbAlert
+    },
+    setup() {
+        const name = ref('');
+        const userLastname = ref('');
+        const userEmail = ref('');
+        const userPhone = ref('');
+        const selectedCountry = ref('');
+        const selectedGender = ref('');
+        const usersCollection = collection(db, "usuarios");
+        const showAlert = ref(false);
+        
+
+        let uidUsuarioLogeado = ref('');
+        const countries = [
+            { value: 'us', name: 'United States' },
+            { value: 'fr', name: 'France' },
+        ];
+
+        const genero = [
+            { value: 'male', name: 'male' },
+            { value: 'female', name: 'female' },
+        ];
+
+
+
+
+        // Llama a obtenerDatosUsuario y espera a que se resuelva
+        const fetchData = async () => {
+            const { nombreUsuarioLogeado: nombre, emailUsuarioLogeado: email, userDocId, lastnameUsuarioLogeado: lastname, phoneUsuarioLogeado: phone, countryUsuarioLogeado: country, genderUsuarioLogeado: gender } = await obtenerDatosUsuario();
+           
+            uidUsuarioLogeado = userDocId
+            name.value = nombre;
+            userEmail.value = email;
+            userPhone.value = phone;
+            userLastname.value = lastname;
+            selectedGender.value = gender;
+            selectedCountry.value = country;
+            console.log("ID de la informacion del usuario: ", uidUsuarioLogeado);
+        };
+
+
+
+        const updateCurrentUser = async () => {
+            try {
+                const data = {
+                    name: name.value,
+                    lastname: userLastname.value,
+                    email: userEmail.value,
+                    phone: userPhone.value,
+                    country: selectedCountry.value,
+                    gender: selectedGender.value,
+                }
+                const userDocRef = doc(usersCollection, uidUsuarioLogeado); // Obtén la referencia al documento con el ID específico
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    // Actualiza el documento con los nuevos datos
+                    await updateDoc(userDocRef, data);
+                    showAlert.value = true;
+                } else {
+                    console.error('No se encontró el documento del usuario');
+                }
+            } catch (error) {
+                console.error('Error al actualizar el usuario:', error.message);
+            }
+        };
+
+
+
+        onMounted(() => {
+
+            fetchData();
+            
+        });
+        watch(showAlert, (newValue) => {
+    if (newValue) {
+        setTimeout(() => {
+            showAlert.value = false;
+        }, 5000);
+    }
+});
+       
+
+        return {
+            name,
+            userLastname,
+            userEmail,
+            userPhone,
+            selectedCountry,
+            selectedGender,
+            countries,
+            genero,
+            
+            updateCurrentUser,
+            showAlert,
+
+        };
+
+    }
+}
+</script>

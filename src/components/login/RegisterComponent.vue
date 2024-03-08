@@ -198,10 +198,10 @@ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
 import { auth } from '@/FirebaseConfig';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword} from 'firebase/auth';
 import { useStore } from 'vuex';
 import { collection, addDoc } from 'firebase/firestore';
-import {  useFirestore } from 'vuefire';
+import { useFirestore } from 'vuefire';
 
 export default {
   setup() {
@@ -212,8 +212,8 @@ export default {
     const router = useRouter();
     const store = useStore();
     const db = useFirestore();
-    const usersCollection = collection(db, 'usuarios'); 
-    
+    const usersCollection = collection(db, 'usuarios');
+    const userType = 'user';
 
     const register = async () => {
       try {
@@ -222,10 +222,11 @@ export default {
         const user = auth.currentUser;
         const uid = user.uid;
         await addDoc(usersCollection, {
-        uid: uid,
-        name: name.value,
-        email: email.value,
-       });
+          uid: uid,
+          name: name.value,
+          email: email.value,
+          userType: userType,
+        });
 
         router.push('/dashboard');
       } catch (error) {

@@ -1,148 +1,131 @@
 <template>
-    <div class="w-screen h-screen flex">
-      <!-- Side bar -->
-      <div class="w-[400px] h-full bg-gray-100 border-b text-white" v-show="showSide">
-        <div class="h-[80px] bg-gray-900 flex justify-start  items-center ">
-          <div class="px-[20px]">
-            <h3 class="font-bold text-xl">Admin Dashboard</h3>
-          </div>
-        </div>
-        <!-- aqui va el menu -->
-      </div>
-      <div class="w-full h-full bg-gray-400">
-        <div class="h-[80px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b ">
-          <!-- Hambuger menu -->
-          <div class="cursor-pointer w-[30px]" @click="toggleSideBar">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class=" w-[25px] h-[25px]">
-              <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-              <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-            </svg>
-          </div>
-          <!-- Search bar -->
-  
-          <div class="w-[calc(100%-30px)] flex">
-            <div class="w-[calc(100%-200px)] flex justify-center ">
-              <!-- Search bar -->
-              <form class="flex items-center w-[500px]">
-                <label for="voice-search" class="sr-only">Search</label>
-                <div class="relative w-full">
-                  <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                    <svg aria-hidden="true" class="w-5 h-auto text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
-                    </svg>
-                  </div>
-                  <input type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." required>
-                  <router-link to="/" class="flex absolute inset-y-0 right-0 items-center pr-3">
-                    <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path>
-                    </svg>
-                  </router-link>
-                </div>
-              </form>
-            </div>
-            <!-- User login -->
-          <navbarCardUser/>  
-          </div>
-        </div>
-        <div class="h-[calc(100vh-50px)] bg-gray-50 p-[20px]">
-          <div class="border border-gray-300 rounded-md p-[20px] h-full">
-            
-            <router-view></router-view>
-            
-     
-    
-   
-          </div>
-        </div>
-      </div>
-      <!-- Main  -->
+  <div class="w-screen   h-screen fixed flex">
+    <!-- Side bar -->
+    <div class="bg-gray-100" v-show="showSide">
+
+      <!-- aqui va el menu -->
+      <navbarAdmin />
     </div>
-  </template>
-  <script>
-  import { signOut } from 'firebase/auth';
-  import { auth } from '@/FirebaseConfig';
-  import router from '@/router';
-  import { computed, onMounted, ref } from 'vue';
+    <div class="w-full h-full bg-gray-50 overflow-scroll">
+      <div class="h-[80px] fixed flex items-center bg-gray-100 shadow-sm px-[30px] w-full sm:w-1/2 md:w-1/3 lg:w-[80vw] xl:w-[80vw] justify-between  py-[10px] z-10">
+        <!-- Hambuger menu -->
+        <div class="cursor-pointer w-[40px]" @click="toggleSideBar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-8 h-8">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+          </svg>
+
+        </div>
+
+        <div class="w-[calc(100%-30px) flex justify-end">
+
+          <!-- User login -->
+          <navbarCardUser />
+        </div>
+      </div>
+      <!-- Dashboard content -->
+      <div class="h-[calc(100vh-50px)]] mt-[60px] bg-gray-100  p-[20px]">
+        <div class=" p-[20px]  bg-gray-100 h-full">
+
+          <router-view></router-view>
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <!-- Main  -->
+  </div>
+</template>
+
+<script>
+import { signOut } from 'firebase/auth';
+import { auth } from '@/FirebaseConfig';
+import router from '@/router';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { collection, onSnapshot, query, where, getDocs } from 'firebase/firestore';
 import { useFirestore } from 'vuefire';
 import { useCollection } from 'vuefire';
 import { useDocument } from 'vuefire';
 import navbarCardUser from '../components/navbars/navbarCardUser'
-  
-  export default {
-    components:{
-      navbarCardUser
-    },
-    computed: {
-  user() {
-    return this.$store.getters.currentUser;
+import navbarAdmin from '../components/navbars/navbarAdmin'
+
+export default {
+  components: {
+    navbarCardUser,
+    navbarAdmin
   },
-},
-    setup() {
-      const showDropDown = ref(false);
-      const showSide = ref(true);
-      const store = useStore();
-      const uid = auth.currentUser.uid;
-      const db = useFirestore();
-      const usersCollection = collection(db, 'usuarios');
-      const nombreUsuarioLogeado = ref(''); 
-      
-     
-      const queryRef = query(usersCollection, where('uid', '==', uid));
+  computed: {
+    user() {
+      return this.$store.getters.currentUser;
+    },
+  },
+  setup() {
+    const showDropDown = ref(false);
+    const showSide = ref(true);
+    const store = useStore();
+    const uid = auth.currentUser.uid;
+    const db = useFirestore();
+    const usersCollection = collection(db, 'usuarios');
+    const nombreUsuarioLogeado = ref('');
+
+
+    const queryRef = query(usersCollection, where('uid', '==', uid));
     const result = ref([]);
 
     const fetchData = async () => {
-  const querySnapshot = await getDocs(queryRef);
-  const userData = querySnapshot.docs.map(doc => doc.data());
-  
-  if (userData.length > 0) {
-    nombreUsuarioLogeado.value = userData[0].name;
-  } else {
-    nombreUsuarioLogeado.value = 'Nombre no encontrado';
-  }
-};
+      const querySnapshot = await getDocs(queryRef);
+      const userData = querySnapshot.docs.map(doc => doc.data());
+
+      if (userData.length > 0) {
+        nombreUsuarioLogeado.value = userData[0].name;
+      } else {
+        nombreUsuarioLogeado.value = 'Nombre no encontrado';
+      }
+    };
 
 
     // Llama a la función fetchData para ejecutar la consulta
     fetchData();
 
 
-     
-
-  // ... abrir y cerrar menu
-      const toggleSideBar = () => {
-        showSide.value = !showSide.value;
-      };
-  
-      const toggleDrop = () => {
-        showDropDown.value = !showDropDown.value;
-      };
-  // ... cerrar sesion
-      const mysignOut = async () => {
-        try {
-          await signOut(auth);
-          router.push('/');
-        } catch (error) {
-          console.log(error.message);
-        }
-      };
-  
-      return {
-        showDropDown,
-        showSide,
-        toggleSideBar,
-        toggleDrop,
-        mysignOut,
-        nombreUsuarioLogeado,
-        uid
-      };
-    },
 
 
-  };
-  </script>
-  
-  <style>
-  
-  </style>
+    // ... abrir y cerrar menu
+    const toggleSideBar = () => {
+      showSide.value = !showSide.value;
+    };
+
+    const toggleDrop = () => {
+      showDropDown.value = !showDropDown.value;
+    };
+    // ... cerrar sesion
+    const mysignOut = async () => {
+      try {
+        await signOut(auth);
+        router.push('/');
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    return {
+      showDropDown,
+
+      showSide,
+      toggleSideBar,
+      toggleDrop,
+      mysignOut,
+      nombreUsuarioLogeado,
+      uid
+    };
+  },
+
+
+};
+</script>
+
+<style></style>
