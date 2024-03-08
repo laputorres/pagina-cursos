@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
-import { browserLocalPersistence, getAuth, setPersistence } from 'firebase/auth';
+import { browserLocalPersistence, getAuth, setPersistence, EmailAuthProvider, AuthCredential } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -22,4 +22,4 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 setPersistence(auth, browserLocalPersistence);
-export { db, auth, app, analytics };
+export { db, auth, app, analytics, EmailAuthProvider, AuthCredential };

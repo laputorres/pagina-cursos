@@ -5,23 +5,27 @@
         <fwb-input v-model="name" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60 " label="First name"
             placeholder="enter your first name" required />
 
-        <fwb-input v-model="userLastname" label="Last name" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
-            placeholder="enter your last name" required />
+        <fwb-input v-model="userLastname" label="Last name"
+            class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60" placeholder="enter your last name"
+            required />
 
         <fwb-input v-model="userEmail" label="email" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
             placeholder="enter your email" required />
-        <fwb-input v-model="userPhone" label="Phone Number" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
-            placeholder="enter your email" required />
+        <fwb-input v-model="userPhone" label="Phone Number"
+            class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60" placeholder="enter your email" required />
 
-        <fwb-select v-model="selectedCountry" :options="countries" class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60"
-            label="Select a Lenguage" />
+        <fwb-select v-model="selectedCountry" :options="countries"
+            class="w-full text-start mb-2 sm:w-1/2 md:w-1/3 lg:w-40 xl:w-60" label="Select a Lenguage" />
 
-        <fwb-select v-model="selectedGender" :options="genero" class="w-full sm:w-1/2 text-start mb-2 md:w-1/3 lg:w-40 xl:w-60"
-            label="I´m" />
+        <fwb-select v-model="selectedGender" :options="genero"
+            class="w-full sm:w-1/2 text-start mb-2 md:w-1/3 lg:w-40 xl:w-60" label="I´m" />
 
-        <fwb-button  class="w-full mt-10 bg-blue-400 sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] self-center" type="submit">Submit</fwb-button>
+        <fwb-button class="w-full mt-10 bg-blue-400 sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] self-center"
+            type="submit">Submit</fwb-button>
     </form>
-    <fwb-alert v-if="showAlert" class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon type="success">
+    <fwb-alert v-if="showAlert"
+        class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
+        type="success">
         Data saved successfully.
     </fwb-alert>
 </template>
@@ -52,7 +56,7 @@ export default {
         const selectedGender = ref('');
         const usersCollection = collection(db, "usuarios");
         const showAlert = ref(false);
-        
+
 
         let uidUsuarioLogeado = ref('');
         const countries = [
@@ -71,7 +75,7 @@ export default {
         // Llama a obtenerDatosUsuario y espera a que se resuelva
         const fetchData = async () => {
             const { nombreUsuarioLogeado: nombre, emailUsuarioLogeado: email, userDocId, lastnameUsuarioLogeado: lastname, phoneUsuarioLogeado: phone, countryUsuarioLogeado: country, genderUsuarioLogeado: gender } = await obtenerDatosUsuario();
-           
+
             uidUsuarioLogeado = userDocId
             name.value = nombre;
             userEmail.value = email;
@@ -114,16 +118,16 @@ export default {
         onMounted(() => {
 
             fetchData();
-            
+
         });
         watch(showAlert, (newValue) => {
-    if (newValue) {
-        setTimeout(() => {
-            showAlert.value = false;
-        }, 5000);
-    }
-});
-       
+            if (newValue) {
+                setTimeout(() => {
+                    showAlert.value = false;
+                }, 5000);
+            }
+        });
+
 
         return {
             name,
@@ -134,7 +138,7 @@ export default {
             selectedGender,
             countries,
             genero,
-            
+
             updateCurrentUser,
             showAlert,
 
