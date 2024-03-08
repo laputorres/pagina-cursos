@@ -10,6 +10,15 @@
             <fwb-alert v-if="showErrorAlert" closable icon type="danger">
                 {{ errorMessage }}
             </fwb-alert>
+            <div class="requirements">
+                <h5>Password requirements</h5>
+                <p>Please follow this guide for a strong password:</p>
+                <ul>
+                    <li>One special characters</li>
+                    <li>Min 8 characters</li>
+                    <li>One number (2 are recommended)</li>
+                </ul>
+            </div>
             <fwb-button class="w-full mt-10 sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] bg-blue-400 self-center"
                 type="submit">Submit</fwb-button>
         </form>
