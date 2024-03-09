@@ -1,13 +1,13 @@
 // Obtener los datos del usuario logeado
 
 import { ref } from 'vue';
-import { auth } from '@/FirebaseConfig';
+import { auth, db } from '@/FirebaseConfig';
 import { useFirestore } from 'vuefire';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 
 const obtenerDatosUsuario = async () => {
   const uid = auth.currentUser.uid;
-  const db = useFirestore();
+  //const db = useFirestore();
   const usersCollection = collection(db, 'usuarios');
   const nombreUsuarioLogeado = ref('');
   const emailUsuarioLogeado = ref('');
@@ -48,8 +48,43 @@ const obtenerDatosUsuario = async () => {
   };
 };
 
-export { obtenerDatosUsuario };
+// Traer documentos de todos los usuarios
+
+const obtenerDatosTodosUsuarios = async () => {
+  const db = useFirestore();
+  const usersCollection = collection(db, 'usuarios');
+  const datosUsuarios = ref([]);
+
+  try {
+    const querySnapshot = await getDocs(usersCollection);
+
+    querySnapshot.forEach((doc) => {
+      const userData = doc.data();
+      const usuario = {
+        nombre: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        lastname: userData.lastname,
+        country: userData.country,
+        gender: userData.gender,
+        userDocId: doc.id,
+      };
+
+      datosUsuarios.value.push(usuario);
+    });
+  } catch (error) {
+    console.error('Error al obtener datos de todos los usuarios', error);
+  }
+
+  return datosUsuarios.value;
+};
+
+//Update documentos "usuarios"
+
+const updateUserData = async (userId, newData) => {
+  const userDocRef = doc(db, 'usuarios', userId); // Ajusta 'usuarios' al nombre de tu colección
+  await updateDoc(userDocRef, newData);
+};
 
 
-// Actualizar datos del usuario logeado
-
+export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData };

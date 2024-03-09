@@ -1,4 +1,5 @@
 <template>
+   <div id="basic-info">
     <fwb-heading tag="h4" color="text-blue-400" class="w-full mb-10 text-start">Basic Info</fwb-heading>
     <form @submit.prevent="updateCurrentUser" class="w-full flex flex-wrap gap-2 justify-around">
 
@@ -28,6 +29,7 @@
         type="success">
         Data saved successfully.
     </fwb-alert>
+   </div>
 </template>
 
 <script>
@@ -35,9 +37,9 @@ import { ref } from 'vue'
 import { FwbInput, FwbSelect, FwbButton, FwbHeading, FwbAlert } from 'flowbite-vue'
 import { onMounted, watch } from 'vue'
 import { obtenerDatosUsuario } from '@/services/firestoreServices'
-import { auth, db } from '../../../FirebaseConfig.ts'
+import {  db } from '../../../FirebaseConfig.ts'
 
-import { getFirestore, collection, query, where, updateDoc, getDoc, doc } from "firebase/firestore";
+import {  collection, updateDoc, getDoc, doc } from "firebase/firestore";
 
 export default {
     components: {
@@ -75,19 +77,19 @@ export default {
         // Llama a obtenerDatosUsuario y espera a que se resuelva
         const fetchData = async () => {
             const { nombreUsuarioLogeado: nombre, emailUsuarioLogeado: email, userDocId, lastnameUsuarioLogeado: lastname, phoneUsuarioLogeado: phone, countryUsuarioLogeado: country, genderUsuarioLogeado: gender } = await obtenerDatosUsuario();
-
+           /* eslint-disable */
             uidUsuarioLogeado = userDocId
-            name.value = nombre;
             userEmail.value = email;
             userPhone.value = phone;
+            name.value = nombre;
             userLastname.value = lastname;
             selectedGender.value = gender;
             selectedCountry.value = country;
             console.log("ID de la informacion del usuario: ", uidUsuarioLogeado);
         };
-
-
-
+        
+        
+        
         const updateCurrentUser = async () => {
             try {
                 const data = {
@@ -96,6 +98,7 @@ export default {
                     email: userEmail.value,
                     phone: userPhone.value,
                     country: selectedCountry.value,
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     gender: selectedGender.value,
                 }
                 const userDocRef = doc(usersCollection, uidUsuarioLogeado); // Obtén la referencia al documento con el ID específico

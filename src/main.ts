@@ -7,8 +7,6 @@ import store from './store';
 import './assets/css/app.css';
 import { auth } from './FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-import PrimeVue from 'primevue/config'
-import MegaMenu from 'primevue/megamenu';
 import '../node_modules/flowbite-vue/dist/index.css'
 
 const app = createApp(App);
@@ -62,9 +60,4 @@ app.use({
   },
 });
 
-app.use(PrimeVue, {
-  unstyled: true,
-  
-});
 
-app.component('MegaMenu', MegaMenu)

@@ -5,6 +5,7 @@ import ProfileDashboard from "../views/profileDashboard.vue";
 import signinComponent from "@/components/login/signinComponent.vue";
 import RegisterComponent from "@/components/login/RegisterComponent.vue";
 import SettingsProfile from "../components/dashboard/pages/settingsProfile.vue";
+import usersComponent from '@/components/dashboard/pages/usersComponent.vue'
 import store from "@/store/index";
 
 const isAuthenticated = () => store.getters.isAuthenticated;
@@ -46,6 +47,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "settings-profile",
         component: SettingsProfile,
+      },
+      {
+        path: "users",
+        component: usersComponent,
       },
     ],
   },

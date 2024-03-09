@@ -7,7 +7,7 @@
       <navbarAdmin />
     </div>
     <div class="w-full h-full bg-gray-50 overflow-scroll">
-      <div class="h-[80px] fixed flex items-center bg-gray-100 shadow-sm px-[30px] w-full sm:w-1/2 md:w-1/3 lg:w-[80vw] xl:w-[80vw] justify-between  py-[10px] z-10">
+      <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100 shadow-sm px-[30px] w-full sm:w-1/2 md:w-1/3 lg:w-[80vw] xl:w-[80vw] justify-between  py-[10px] z-10">
         <!-- Hambuger menu -->
         <div class="cursor-pointer w-[40px]" @click="toggleSideBar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
