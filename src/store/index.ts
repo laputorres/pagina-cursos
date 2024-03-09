@@ -1,4 +1,4 @@
-// auth.js
+// store/index.ts
 import { createStore } from 'vuex';
 import { obtenerDatosUsuario } from '@/services/firestoreServices'
 

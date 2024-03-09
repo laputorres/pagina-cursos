@@ -15,7 +15,7 @@
             <div id="dropdown"
                 class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <fwb-button @click="showModal">
-                    Open modal
+                   Update Image
                 </fwb-button>
 
 
@@ -70,35 +70,35 @@
             </div>
         </div>
         <fwb-modal @close="closeModal" v-if="isShowModal" class="absolute z-100">
-            <template #header>
-                <div class="flex items-center text-lg">
-                    Terms of Service
-                </div>
-            </template>
-            <template #body>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for
-                    its citizens, companies around the world are updating their terms of service agreements to
-                    comply.
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May
-                    25 and is meant to ensure a common set of data rights in the European Union. It requires
-                    organizations to notify users as soon as possible of high-risk data breaches that could
-                    personally affect them.
-                </p>
-            </template>
-            <template #footer>
-                <div class="flex justify-between">
-                    <fwb-button @click="closeModal" color="alternative">
-                        Decline
-                    </fwb-button>
-                    <fwb-button @click="closeModal" color="green">
-                        I accept
-                    </fwb-button>
-                </div>
-            </template>
-        </fwb-modal>
+    <template #header>
+        <div class="flex items-center text-lg">
+            Upload Image
+        </div>
+    </template>
+    <template #body>
+        <form @submit.prevent="uploadImage">
+            <input type="file" @change="handleFileChange" accept="image/*" class="mb-4" />
+            <div v-if="selectedFile">
+                <img :src="imageUrl" alt="Selected Image" class="mb-4 max-w-full h-auto" />
+            </div>
+            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                Select an image file to upload.
+            </p>
+        </form>
+    </template>
+    <template #footer>
+        <div class="flex justify-between">
+            <fwb-button @click="closeModal" color="alternative">
+                Cancel
+            </fwb-button>
+            <fwb-button @click="uploadImage" color="green" :disabled="!selectedFile">
+                Upload
+            </fwb-button>
+        </div>
+    </template>
+</fwb-modal>
+
+
     </div>
 </template>
 
