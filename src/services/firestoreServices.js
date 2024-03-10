@@ -18,6 +18,7 @@ const obtenerDatosUsuario = async () => {
   const phoneUsuarioLogeado = ref('');
   const countryUsuarioLogeado = ref('');
   const genderUsuarioLogeado = ref('');
+  const imgSrc = ref('');
   let userDocId = null;
 
   const queryRef = query(usersCollection, where('uid', '==', uid));
@@ -26,14 +27,14 @@ const obtenerDatosUsuario = async () => {
     const querySnapshot = await getDocs(queryRef);
     querySnapshot.forEach((doc) => {
       const userData = doc.data();
+      userDocId = doc.id;
       nombreUsuarioLogeado.value = userData.name;
       emailUsuarioLogeado.value = userData.email;
       phoneUsuarioLogeado.value = userData.phone;
       lastnameUsuarioLogeado.value = userData.lastname;
       countryUsuarioLogeado.value = userData.country;
       genderUsuarioLogeado.value = userData.gender;
-      userDocId = doc.id;
-      
+      imgSrc.value = userData.imgSrc;
     });
   } catch (error) {
     console.error('Error al obtener datos del usuario', error);
@@ -46,6 +47,7 @@ const obtenerDatosUsuario = async () => {
     phoneUsuarioLogeado: phoneUsuarioLogeado.value,
     genderUsuarioLogeado: genderUsuarioLogeado.value,
     countryUsuarioLogeado: countryUsuarioLogeado.value,
+    imgSrc:  imgSrc.value,
     userDocId
    
   };
