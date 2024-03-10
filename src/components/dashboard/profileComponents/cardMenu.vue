@@ -108,7 +108,7 @@ import { FwbButton, FwbModal } from 'flowbite-vue';
 import { auth, db } from '@/FirebaseConfig';
 import { obtenerDatosUsuario, updateUserData } from '@/services/firestoreServices';
 import { useFirebaseStorage } from 'vuefire';
-import { getDownloadURL, ref as storageRef, uploadBytesResumable } from '@firebase/storage'
+import { getDownloadURL, ref as storageRef, uploadBytesResumable, deleteObject } from '@firebase/storage'
 import { useStorageFileUrl } from 'vuefire';
 import { useFileDialog } from '@vueuse/core'
 import { collection, updateDoc, getDoc, doc } from "firebase/firestore";
@@ -154,6 +154,17 @@ export default {
           const storageDirectory = 'users-avatar';
           const storagePath = `${storageDirectory}/${selectedFile.value.name}`;
           const fileRef = storageRef(storage, storagePath);
+
+          const currentUserData = store.getters.currentUser;
+      const currentImageUrl = currentUserData.imgSrc;
+
+      // Si hay una URL actual, elimina la imagen antigua de Firebase Storage
+      if (currentImageUrl) {
+        const currentImageRef = storageRef(storage, currentImageUrl);
+        await deleteObject(currentImageRef);
+        console.log('Imagen antigua eliminada de Firebase Storage');
+      }
+
 
           const uploadTask = uploadBytesResumable(fileRef, selectedFile.value);
 
