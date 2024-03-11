@@ -221,11 +221,13 @@ export default {
         store.commit('setUser', auth.currentUser);
         const user = auth.currentUser;
         const uid = user.uid;
+        const currentDate = new Date();
         await addDoc(usersCollection, {
           uid: uid,
           name: name.value,
           email: email.value,
           userType: userType,
+          dateStart: currentDate
         });
 
         router.push('/dashboard');

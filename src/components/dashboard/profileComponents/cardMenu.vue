@@ -76,9 +76,10 @@
             </template>
             <template #body>
                 <form @submit.prevent="uploadImage">
-                    <input type="file" @change="handleFileChange" accept="image/*" class="mb-4" />
+                    <input type="file" @change="handleFileChange" accept="image/*" class="mb-4 bg-red-500" />
                     <div v-if="selectedFile">
-                        <img :src="getImageUrl(selectedFile)" alt="Selected Image" class="mb-4 max-w-full h-auto" />
+                        <img :src="getImageUrl(selectedFile)" alt="Selected Image"
+                            class="mb-4 max-w-[250px] rounded-full m-auto object-cover  aspect-square h-auto" />
                     </div>
                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                         Select an image file to upload.
@@ -97,114 +98,122 @@
             </template>
         </fwb-modal>
 
-
+        <fwb-alert v-if="showAlert"
+            class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
+            type="success">
+            Image saved successfully.
+        </fwb-alert>
     </div>
 </template>
 
 <script>
 import { onMounted, ref, watch, computed } from 'vue';
-import { useStorage } from 'vuefire';  // Importa useStorage y useStorageRef de vuefire
-import { FwbButton, FwbModal } from 'flowbite-vue';
-import { auth, db } from '@/FirebaseConfig';
-import { obtenerDatosUsuario, updateUserData } from '@/services/firestoreServices';
-import { useFirebaseStorage } from 'vuefire';
+import { FwbButton, FwbModal, FwbAlert } from 'flowbite-vue';
+import { db } from '@/FirebaseConfig';
+import { obtenerDatosUsuario } from '@/services/firestoreServices';
 import { getDownloadURL, ref as storageRef, uploadBytesResumable, deleteObject } from '@firebase/storage'
-import { useStorageFileUrl } from 'vuefire';
-import { useFileDialog } from '@vueuse/core'
+import { useStorageFileUrl, useFirebaseStorage } from 'vuefire';
 import { collection, updateDoc, getDoc, doc } from "firebase/firestore";
 import { useStore } from 'vuex'
 
 
 export default {
     components: {
-        FwbButton, FwbModal
+        FwbButton, FwbModal, FwbAlert
     },
-   
 
-    
+
+
 
     setup() {
         const nombreUsuarioLogeado = ref('');
         const emailUsuarioLogeado = ref('');
         const imgSrc = ref('');
         const selectedFile = ref(null);
-    const isShowModal = ref(false);
+        const isShowModal = ref(false);
+        const showAlert = ref(false);
 
-         // Servicios de Firebase
-    const storage = useFirebaseStorage();
-    const defaultImageUrl = storageRef(storage, '/free-avatar-370-456322.webp');
-    const { url } = useStorageFileUrl(defaultImageUrl);
+        // Servicios de Firebase
+        const storage = useFirebaseStorage();
+        const defaultImageUrl = storageRef(storage, '/free-avatar-370-456322.webp');
+        const { url } = useStorageFileUrl(defaultImageUrl);
 
-    // Obtener store de Vuex
-    const store = useStore();
+        // Obtener store de Vuex
+        const store = useStore();
 
         //obtener imagen del formulario
-    const handleFileChange = (event) => {
-      const file = event.target.files[0];
-      selectedFile.value = file;
-      console.log('File selected:', selectedFile.value);
-    };
+        const handleFileChange = (event) => {
+            const file = event.target.files[0];
+            selectedFile.value = file;
+            console.log('File selected:', selectedFile.value);
+        };
 
-    const getImageUrl = (file) => URL.createObjectURL(file);
-
-
-    const uploadImage = async () => {
-      if (selectedFile.value) {
-        try {
-          const storageDirectory = 'users-avatar';
-          const storagePath = `${storageDirectory}/${selectedFile.value.name}`;
-          const fileRef = storageRef(storage, storagePath);
-
-          const currentUserData = store.getters.currentUser;
-      const currentImageUrl = currentUserData.imgSrc;
-
-      // Si hay una URL actual, elimina la imagen antigua de Firebase Storage
-      if (currentImageUrl) {
-        const currentImageRef = storageRef(storage, currentImageUrl);
-        await deleteObject(currentImageRef);
-        console.log('Imagen antigua eliminada de Firebase Storage');
-      }
+        const getImageUrl = (file) => URL.createObjectURL(file);
 
 
-          const uploadTask = uploadBytesResumable(fileRef, selectedFile.value);
+        const uploadImage = async () => {
+            if (selectedFile.value) {
+                try {
+                    const storageDirectory = 'users-avatar';
+                    const storagePath = `${storageDirectory}/${selectedFile.value.name}`;
+                    const fileRef = storageRef(storage, storagePath);
 
-          uploadTask.on(
-            'state_changed',
-            (snapshot) => {
-              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log(`Progreso de carga: ${progress}%`);
-            },
-            (error) => {
-              console.error('Error durante la carga:', error);
-            },
-            async () => {
-              const imageUrl = await getDownloadURL(fileRef);
-              imgSrc.value = imageUrl;
+                    const currentUserData = store.getters.currentUser;
+                    const currentImageUrl = currentUserData.imgSrc;
 
-              const userData = store.getters.currentUser;
-              await updateUserImageInFirestore(userData.userDocId, imageUrl);
+                    // Si hay una URL actual, elimina la imagen antigua de Firebase Storage
+                    if (currentImageUrl) {
+                        const currentImageRef = storageRef(storage, currentImageUrl);
+                        await deleteObject(currentImageRef);
+                        console.log('Imagen antigua eliminada de Firebase Storage');
+                    }
 
-              isShowModal.value = false;
+
+                    const uploadTask = uploadBytesResumable(fileRef, selectedFile.value);
+
+                    uploadTask.on(
+                        'state_changed',
+                        (snapshot) => {
+                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                            console.log(`Progreso de carga: ${progress}%`);
+                        },
+                        (error) => {
+                            console.error('Error durante la carga:', error);
+                        },
+                        async () => {
+                            const imageUrl = await getDownloadURL(fileRef);
+                            imgSrc.value = imageUrl;
+
+                            const userData = store.getters.currentUser;
+                            await updateUserImageInFirestore(userData.userDocId, imageUrl);
+
+                            isShowModal.value = false;
+                            showAlert.value = true;
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        }
+                    );
+                } catch (error) {
+                    console.error('Error al cargar la imagen:', error);
+                }
+            } else {
+                console.warn('No se ha seleccionado ningún archivo.');
+
             }
-          );
-        } catch (error) {
-          console.error('Error al cargar la imagen:', error);
-        }
-      } else {
-        console.warn('No se ha seleccionado ningún archivo.');
-      }
-    };
+        };
 
-    const updateUserImageInFirestore = async (userDocId, imageUrl) => {
-      try {
-        const usersCollection = collection(db, 'usuarios');
-        const userDocRef = doc(usersCollection, userDocId);
-        await updateDoc(userDocRef, { imgSrc: imageUrl });
-        console.log('URL de imagen actualizada en Firestore:', imageUrl);
-      } catch (error) {
-        console.error('Error al actualizar la URL de imagen en Firestore:', error);
-      }
-    };
+        const updateUserImageInFirestore = async (userDocId, imageUrl) => {
+            try {
+                const usersCollection = collection(db, 'usuarios');
+                const userDocRef = doc(usersCollection, userDocId);
+                await updateDoc(userDocRef, { imgSrc: imageUrl });
+
+                console.log('URL de imagen actualizada en Firestore:', imageUrl);
+            } catch (error) {
+                console.error('Error al actualizar la URL de imagen en Firestore:', error);
+            }
+        };
 
 
 
@@ -239,7 +248,7 @@ export default {
 
 
         //mostrar modal
-        
+
 
         function closeModal() {
             isShowModal.value = false;
@@ -257,21 +266,30 @@ export default {
             console.log(`closeMdal changed from ${oldValue} to ${newValue}`);
         });
 
+        watch(showAlert, (newValue) => {
+            if (newValue) {
+                setTimeout(() => {
+                    showAlert.value = false;
+                }, 5000);
+            }
+        });
+
         onMounted(() => {
             fetchData();
         });
 
         return {
             nombreUsuarioLogeado,
-      emailUsuarioLogeado,
-      imgSrc,
-      selectedFile,
-      isShowModal,
-      handleFileChange,
-      getImageUrl,
-      uploadImage,
-      closeModal,
-      showModal,
+            emailUsuarioLogeado,
+            imgSrc,
+            selectedFile,
+            isShowModal,
+            handleFileChange,
+            getImageUrl,
+            uploadImage,
+            closeModal,
+            showModal,
+            showAlert
 
 
         };

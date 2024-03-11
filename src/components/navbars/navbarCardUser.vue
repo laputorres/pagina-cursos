@@ -1,10 +1,10 @@
 <template>
 
   <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-    <button type="button" class="inline-block mb-6 rounded-full bg-gray-300 pr-5 h-16 line-height-[3.75rem]"
+    <button type="button" class="inline-block flex items-center mb-6 rounded-full bg-gray-300 px-5 h-16 line-height-[3.75rem]"
       id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-      <img class="rounded-full float-left h-full" src="https://www.w3schools.com/howto/img_avatar.png" alt="user photo">
-      <span class="texto-[16px]">{{ user.nombreUsuarioLogeado }}</span>
+      <img class="rounded-full w-12 float-left h-12" :src="user.imgSrc || urlDefaultImage" alt="user photo">
+      <span class="texto-[16px] w-24 ml-[10px]">{{ user.nombreUsuarioLogeado }}</span>
     </button>
     <!-- Dropdown menu -->
     <div
@@ -56,11 +56,19 @@ import router from '@/router';
 import { ref, onMounted, computed } from 'vue';
 import { initFlowbite } from 'flowbite'
 import { useStore } from 'vuex';
+import { useFirebaseStorage, useStorageFileUrl } from 'vuefire';
+import { ref as storageRef } from '@firebase/storage'
 
 export default {
   setup() {
     const showDropDown = ref(false);
     const showSide = ref(true);
+    const storage = useFirebaseStorage();
+    const defaultImageUrl = storageRef(storage, '/free-avatar-370-456322.webp');
+    const { url: urlDefaultImage } = useStorageFileUrl(defaultImageUrl);
+
+
+
 
     onMounted(() => {
       initFlowbite();
@@ -69,7 +77,8 @@ export default {
     const store = useStore();
 
     const user = computed(() => store.getters.currentUser);
-
+    console.log("imagen navbar card: ", defaultImageUrl);
+    console.log('Valor de user.imgSrc:', user.value.imgSrc);
     // ... abrir y cerrar menu
     const toggleSideBar = () => {
       showSide.value = !showSide.value;
@@ -95,6 +104,7 @@ export default {
       toggleDrop,
       mysignOut,
       user,
+      urlDefaultImage
 
     };
   },

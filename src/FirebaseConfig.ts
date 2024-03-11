@@ -22,6 +22,9 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
+const getUser = () => {
+  return auth.currentUser;
+};
 
 setPersistence(auth, browserLocalPersistence);
-export { db, auth, app, analytics,storage, EmailAuthProvider, AuthCredential };
+export { db, auth, app, analytics,storage, EmailAuthProvider, getUser, AuthCredential };

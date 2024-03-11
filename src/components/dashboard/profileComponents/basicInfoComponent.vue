@@ -51,7 +51,7 @@ export default {
         FwbHeading,
         FwbAlert
     },
-     setup() {
+    setup() {
         const name = ref('');
         const userLastname = ref('');
         const userEmail = ref('');
@@ -60,7 +60,7 @@ export default {
         const selectedGender = ref('');
         const usersCollection = collection(db, "usuarios");
         const showAlert = ref(false);
-        
+
 
 
         let uidUsuarioLogeado = ref('');
@@ -76,44 +76,45 @@ export default {
 
 
         const store = useStore();
-        
-        const  userData = computed(() => store.getters.currentUser);
-            
-            console.log("userData value: ", userData)
-   
-           
-                
-    const data = userData;
 
-    uidUsuarioLogeado.value = data.value.userDocId;
-    name.value = data.value.nombreUsuarioLogeado;
-    userLastname.value = data.value.lastnameUsuarioLogeado;
-    userEmail.value = data.value.emailUsuarioLogeado;
-    userPhone.value = data.value.phoneUsuarioLogeado;
-    selectedCountry.value = data.value.countryUsuarioLogeado;
-    selectedGender.value = data.value.genderUsuarioLogeado;
-  
-  
+        const userData = computed(() => store.getters.currentUser);
 
-    // Llamada a la función de inicialización al inicio
-    
+        console.log("userData value: ", userData)
 
 
-    onBeforeMount(() => {
-      console.log("user data:", userData.value);
-    });
+
+        const data = userData;
+
+        uidUsuarioLogeado.value = userData.value.userDocId || '';
+        name.value = userData.value.nombreUsuarioLogeado || '';
+        userLastname.value = userData.value.lastnameUsuarioLogeado || '';
+        userEmail.value = userData.value.emailUsuarioLogeado || '';
+        userPhone.value = userData.value.phoneUsuarioLogeado || '';
+        selectedCountry.value = userData.value.countryUsuarioLogeado || '';
+        selectedGender.value = userData.value.genderUsuarioLogeado || '';
+
+
+
+
+        // Llamada a la función de inicialización al inicio
+
+
+
+        onBeforeMount(() => {
+            console.log("user data:", userData.value);
+        });
 
 
         const updateCurrentUser = async () => {
             try {
                 const data = {
                     name: name.value,
-                    lastname: userLastname.value,
-                    email: userEmail.value,
-                    phone: userPhone.value,
-                    country: selectedCountry.value,
+                    lastname: userLastname.value || '',
+                    email: userEmail.value || '',
+                    phone: userPhone.value || '',
+                    country: selectedCountry.value || '',
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    gender: selectedGender.value,
+                    gender: selectedGender.value || '',
                 }
                 const userDocRef = doc(usersCollection, uidUsuarioLogeado.value); // Obtén la referencia al documento con el ID específico
                 const userDoc = await getDoc(userDocRef);
@@ -123,8 +124,8 @@ export default {
                     await updateDoc(userDocRef, data);
                     showAlert.value = true;
                     setTimeout(() => {
-                window.location.reload();
-            }, 2000);
+                        window.location.reload();
+                    }, 2000);
                 } else {
                     console.error('No se encontró el documento del usuario');
                 }
@@ -133,18 +134,18 @@ export default {
             }
         };
 
-      
+
         watch(userData, (newUserData) => {
-      if (newUserData) {
-        uidUsuarioLogeado.value = newUserData.userDocId;
-        name.value = newUserData.nombreUsuarioLogeado;
-        userLastname.value = newUserData.lastnameUsuarioLogeado;
-        userEmail.value = newUserData.emailUsuarioLogeado;
-        userPhone.value = newUserData.phoneUsuarioLogeado;
-        selectedCountry.value = newUserData.countryUsuarioLogeado;
-        selectedGender.value = newUserData.genderUsuarioLogeado;
-      }
-    });
+            if (newUserData) {
+                uidUsuarioLogeado.value = newUserData.userDocId;
+                name.value = newUserData.nombreUsuarioLogeado;
+                userLastname.value = newUserData.lastnameUsuarioLogeado;
+                userEmail.value = newUserData.emailUsuarioLogeado;
+                userPhone.value = newUserData.phoneUsuarioLogeado;
+                selectedCountry.value = newUserData.countryUsuarioLogeado;
+                selectedGender.value = newUserData.genderUsuarioLogeado;
+            }
+        });
 
 
         watch(showAlert, (newValue) => {
@@ -166,7 +167,7 @@ export default {
             genero,
             updateCurrentUser,
             showAlert,
-            
+
         };
 
     }
