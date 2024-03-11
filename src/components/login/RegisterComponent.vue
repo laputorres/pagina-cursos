@@ -198,7 +198,7 @@ hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100">
 import { auth } from '@/FirebaseConfig';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { createUserWithEmailAndPassword} from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification} from 'firebase/auth';
 import { useStore } from 'vuex';
 import { collection, addDoc } from 'firebase/firestore';
 import { useFirestore } from 'vuefire';
@@ -229,6 +229,8 @@ export default {
           userType: userType,
           dateStart: currentDate
         });
+
+        await sendEmailVerification(user);
 
         router.push('/dashboard');
       } catch (error) {
