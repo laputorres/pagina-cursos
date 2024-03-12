@@ -8,7 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      
+      screens: {
+        'xsm': '639px',
+      },
     },
   },
   plugins: [

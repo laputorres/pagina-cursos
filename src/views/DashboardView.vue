@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen   h-screen fixed flex">
     <!-- Side bar -->
-    <div class="bg-gray-100" v-show="showSide">
+    <div class="bg-gray-100 shadow-xl dashboard-sidebar" v-show="showSide">
 
       <!-- aqui va el menu -->
       <navbarAdmin />
@@ -26,7 +26,7 @@
       </div>
       <!-- Dashboard content -->
       <div class="h-[calc(100vh-50px)]] mt-[60px] bg-gray-100  p-[20px]">
-        <div class=" p-[20px]  bg-gray-100 h-full">
+        <div class=" p-[20px] max-sm:p-[0px]  bg-gray-100 h-full">
 
           <router-view></router-view>
 

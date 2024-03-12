@@ -5,7 +5,9 @@ import ProfileDashboard from "../views/profileDashboard.vue";
 import signinComponent from "@/components/login/signinComponent.vue";
 import RegisterComponent from "@/components/login/RegisterComponent.vue";
 import SettingsProfile from "../components/dashboard/pages/settingsProfile.vue";
-import usersComponent from '@/components/dashboard/pages/usersComponent.vue'
+import usersComponent from '@/components/dashboard/pages/usersComponent.vue';
+import createCursePage from '@/components/dashboard/pages/createCursePage.vue';
+import forgotPassword from '@/components/login/forgotPassword.vue'
 import store from "@/store/index";
 
 const isAuthenticated = () => store.getters.isAuthenticated;
@@ -25,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/register",
     name: "register",
     component: RegisterComponent,
+  },
+  {
+    path: "/forgot-password",
+    name: "forgotPassword",
+    component: forgotPassword,
   },
 
   {
@@ -51,6 +58,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "users",
         component: usersComponent,
+      },
+      {
+        path: "create-curse",
+        component: createCursePage,
       },
     ],
   },

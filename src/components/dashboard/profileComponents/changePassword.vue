@@ -11,7 +11,7 @@
             <fwb-alert v-if="showErrorAlert" closable icon type="danger">
                 {{ errorMessage }}
             </fwb-alert>
-            <div class="aditional-info flex justify-between items-end mt-10">
+            <div class="aditional-info flex justify-between max-sm:flex-col items-end mt-10">
                 <div class="requirements text-start text-gray-500 flex flex-col gap-2">
                     <h5 class="text-xl font-bold">Password requirements</h5>
                     <p class="font-italic">Please follow this guide for a strong password:</p>
@@ -21,7 +21,7 @@
                         <li>One number (2 are recommended)</li>
                     </ul>
                 </div>
-                <fwb-button class="w-full sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] bg-blue-400 self-end"
+                <fwb-button class="w-full sm:w-1/2 md:w-1/3 lg:w-40 xl:[100%] max-sm:mt-5 bg-blue-400 self-end"
                     type="submit">Save</fwb-button>
             </div>
         </form>

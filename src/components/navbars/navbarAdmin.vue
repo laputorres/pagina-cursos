@@ -5,10 +5,9 @@
     class="w-1/2 rounded-[30px] m-2 md:w-1/3 lg:w-64 h-[97vh]  md:top-0 md:left-0  lg:block bg-blue z-30"
     :class="sideBarOpen ? '' : 'hidden'" id="main-nav">
 
-   
       <!-- component -->
 
-  <div class=" flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
+  <div class=" flex flex-col top-0 left-0 w-64 bg-blue-800 h-full  rounded-2xl">
     <div class="flex items-center justify-center h-14 ">
       <router-link to="/" class="font-semibold text-3xl text-center text-gray-100 pl-4">LOGO</router-link>
     </div>
@@ -16,13 +15,16 @@
       <ul class="flex flex-col py-4 space-y-1">
         <li class="px-5">
           <div class="flex flex-row items-center h-8">
-            <div class="text-sm font-light tracking-wide text-gray-500">Menu</div>
+            <div class="text-sm font-light tracking-wide text-gray-200">Menu</div>
           </div>
         </li>
         <li>
-          <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+          <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-700 text-white  border-l-4 border-transparent hover:rounded-2xl hover:mx-5 pr-6">
             <span class="inline-flex justify-center items-center ml-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff" fill="none">
+    <path d="M9.06165 4.82633L3.23911 9.92134C2.7398 10.3583 3.07458 11.1343 3.76238 11.1343C4.18259 11.1343 4.52324 11.4489 4.52324 11.8371V15.0806C4.52324 17.871 4.52324 19.2662 5.46176 20.1331C6.40029 21 7.91082 21 10.9319 21H13.0681C16.0892 21 17.5997 21 18.5382 20.1331C19.4768 19.2662 19.4768 17.871 19.4768 15.0806V11.8371C19.4768 11.4489 19.8174 11.1343 20.2376 11.1343C20.9254 11.1343 21.2602 10.3583 20.7609 9.92134L14.9383 4.82633C13.5469 3.60878 12.8512 3 12 3C11.1488 3 10.4531 3.60878 9.06165 4.82633Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M12 16H12.009" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
             </span>
             <router-link to="/dashboard" class="ml-2 text-sm tracking-wide truncate" >Dashboard</router-link>
             
@@ -56,7 +58,7 @@
         </li>
         <li class="px-5">
           <div class="flex flex-row items-center h-8">
-            <div class="text-sm font-light tracking-wide text-gray-500">Clients</div>
+            <div class="text-sm font-light tracking-wide text-gray-500">Curses</div>
           </div>
         </li>
         <li>
@@ -64,7 +66,7 @@
             <span class="inline-flex justify-center items-center ml-4">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
             </span>
-            <span class="ml-2 text-sm tracking-wide truncate">Available Tasks</span>
+            <router-link to="/dashboard/create-curse" class="ml-2 text-sm tracking-wide truncate">Create Curse</router-link>
           </a>
         </li>
         <li>
