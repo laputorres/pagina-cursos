@@ -20,6 +20,10 @@
                     class="px-10 py-10 mb-10  bg-white shadow-xl bg-clip-border rounded-2xl dark:bg-gray-800 dark:border-gray-700">
                     <priceComponent @update-form-data="updateFormData" />
                 </div>
+                <div
+                    class="px-10 py-10 mb-10  bg-white shadow-xl bg-clip-border rounded-2xl dark:bg-gray-800 dark:border-gray-700">
+                    <fwb-button gradient="blue">Create Curse</fwb-button>
+                </div>
             </div>
         </div>
 
@@ -29,7 +33,7 @@
 
 
 <script>
-import { FwbHeading } from 'flowbite-vue'
+import { FwbHeading,FwbButton } from 'flowbite-vue'
 import stepper from '../createCurses/menuStepper.vue'
 import titleDescription from '../createCurses/titleDescription.vue'
 import mediaVideos from '../createCurses/mediaVideos'
@@ -39,6 +43,7 @@ import { ref } from 'vue';
 export default {
     components: {
         FwbHeading,
+        FwbButton,
         stepper,
         titleDescription,
         mediaVideos,
