@@ -43,7 +43,9 @@ export default {
     };
 
     const emitFormData = () => {
-      emit('update-form-data', clases.value);
+      
+
+      emit('update-form-data',{clases: clases.value});
     };
 
     watch(clases, (newVal) => {
@@ -59,17 +61,17 @@ export default {
   methods: {
     lectureVideo(index) {
       const input = document.getElementById('videoInput_' + index);
-  const file = input.files[0];
+      const file = input.files[0];
 
-  if (file) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      // Aquí puedes actualizar localClases[index].lectureVideo con el contenido del video
-      // Puedes almacenar la URL del video, el Blob o cualquier otra representación que prefieras
-      this.clases[index].lectureVideo = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          // Aquí puedes actualizar localClases[index].lectureVideo con el contenido del video
+          // Puedes almacenar la URL del video, el Blob o cualquier otra representación que prefieras
+          this.clases[index].lectureVideo = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
     },
   },
 };

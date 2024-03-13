@@ -19,6 +19,7 @@ const obtenerDatosUsuario = async () => {
   const countryUsuarioLogeado = ref('');
   const genderUsuarioLogeado = ref('');
   const imgSrc = ref('');
+  const userType = ref('');
   let userDocId = null;
 
   const queryRef = query(usersCollection, where('uid', '==', uid));
@@ -35,6 +36,7 @@ const obtenerDatosUsuario = async () => {
       countryUsuarioLogeado.value = userData.country;
       genderUsuarioLogeado.value = userData.gender;
       imgSrc.value = userData.imgSrc;
+      userType.value = userData.userType;
     });
   } catch (error) {
     console.error('Error al obtener datos del usuario', error);
@@ -48,6 +50,7 @@ const obtenerDatosUsuario = async () => {
     genderUsuarioLogeado: genderUsuarioLogeado.value,
     countryUsuarioLogeado: countryUsuarioLogeado.value,
     imgSrc:  imgSrc.value,
+    userType : userType.value,
     userDocId
    
   };

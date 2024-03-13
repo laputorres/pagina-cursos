@@ -79,7 +79,17 @@ router.beforeEach((to, from, next) => {
 
   if (requiresAuth && !isAuthenticated()) {
     next({ name: "login" }); // Redirige a la página de inicio de sesión si no está autenticado
-  } else {
+  } else if (requiresAuth && isAuthenticated()) {
+    // Verifica el tipo de usuario antes de permitir el acceso al dashboard
+    const userData = store.getters.currentUser;
+
+    if (userData && userData.userType === 'admin') {
+      next(); // El usuario es admin, permite el acceso al dashboard
+    } else {
+      next({ name: "home" }); // El usuario no es admin, redirige a la página de inicio
+    }
+  }
+  else {
     next(); // Continúa con la navegación normal
   }
 });
