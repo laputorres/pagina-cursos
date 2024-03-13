@@ -33,6 +33,12 @@ export default {
       { header: "lecture 2", lectureTitle: "", lectureDescription: "" },
     ]);
 
+    const videos = ref([]);
+    const storeVideo = (index, file) => {
+      videos[index] = file;
+      emit('store-video', index, file); // Emitir el evento store-video al componente principal
+    };
+
     const addClase = () => {
       const newClase = {
         header: `lecture ${clases.value.length + 1}`,
@@ -43,36 +49,30 @@ export default {
     };
 
     const emitFormData = () => {
-      
 
-      emit('update-form-data',{clases: clases.value});
+
+      emit('update-form-data', { clases: clases.value });
     };
 
-    watch(clases, (newVal) => {
-      console.log('Clases actualizadas:', newVal);
-    }, { deep: true });
+    const lectureVideo = (index) => {
+      const input = document.getElementById('videoInput_' + index);
+      const file = input.files[0];
+
+      if (file) {
+        console.log('Archivo seleccionado:', file);
+
+        emit('store-video', index, file); // Emitir el evento store-video al componente padre
+
+      }
+    };
 
     return {
       clases,
       addClase,
       emitFormData,
+      lectureVideo
     };
   },
-  methods: {
-    lectureVideo(index) {
-      const input = document.getElementById('videoInput_' + index);
-      const file = input.files[0];
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          // Aquí puedes actualizar localClases[index].lectureVideo con el contenido del video
-          // Puedes almacenar la URL del video, el Blob o cualquier otra representación que prefieras
-          this.clases[index].lectureVideo = reader.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    },
-  },
 };
 </script>
