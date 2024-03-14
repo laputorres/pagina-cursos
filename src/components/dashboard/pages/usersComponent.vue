@@ -47,7 +47,7 @@
                                     <td class="p-2 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-                                                <img class="rounded-full" :src="usuario.avatar" width="40" height="40"
+                                                <img class="rounded-full" :src="usuario.imgSrc" width="40" height="40"
                                                     :alt="usuario.nombre">
                                             </div>
                                             <div class="font-medium text-gray-800">{{ usuario.nombre }}</div>

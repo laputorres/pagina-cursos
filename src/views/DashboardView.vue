@@ -26,7 +26,7 @@
       </div>
       <!-- Dashboard content -->
       <div class="h-[calc(100vh-50px)]] mt-[60px] bg-gray-100  p-[20px]">
-        <div class=" p-[20px] max-sm:p-[0px]  bg-gray-100 h-full">
+        <div class=" p-[20px] max-sm:p-[0px]  bg-gray-100 h-full min-h-[calc(100vh-115px)]">
 
           <router-view></router-view>
 

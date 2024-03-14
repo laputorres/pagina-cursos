@@ -76,6 +76,7 @@ const obtenerDatosTodosUsuarios = async () => {
         country: userData.country,
         gender: userData.gender,
         userDocId: doc.id,
+        imgSrc: userData.imgSrc
       };
 
       datosUsuarios.value.push(usuario);
@@ -95,4 +96,43 @@ const updateUserData = async (userId, newData) => {
 };
 
 
-export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData };
+
+
+// Traer todas las categorias
+
+const allCategories= async () => {
+ const categoriesCollection = collection(db, 'categories');
+  const categoriesData = ref([]);
+
+  try {
+    const querySnapshot = await getDocs(categoriesCollection);
+
+    querySnapshot.forEach((doc) => {
+      const categoryData = doc.data();
+      const category = {
+        name: categoryData.name,
+        categoryDocId: doc.id,
+        subcategories: categoryData.subCategories || [
+
+        ],
+        
+      };
+
+      const subcategories = categoryData.subcategories;
+      if (subcategories) {
+        category.subcategories.push(...subcategories);
+      }
+      categoriesData.value.push(category);
+     
+    });
+  } catch (error) {
+    console.error('Error al obtener datos de todas las categorias', error);
+  }
+
+  return categoriesData.value;
+};
+
+
+
+
+export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories };

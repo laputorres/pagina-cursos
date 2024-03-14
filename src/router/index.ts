@@ -8,6 +8,7 @@ import SettingsProfile from "../components/dashboard/pages/settingsProfile.vue";
 import usersComponent from '@/components/dashboard/pages/usersComponent.vue';
 import createCursePage from '@/components/dashboard/pages/createCursePage.vue';
 import forgotPassword from '@/components/login/forgotPassword.vue'
+import categoriesAdmin from '@/components/dashboard/pages/categoriesAdmin.vue'
 import store from "@/store/index";
 
 const isAuthenticated = () => store.getters.isAuthenticated;
@@ -62,6 +63,10 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "create-curse",
         component: createCursePage,
+      },
+      {
+        path: "categories",
+        component: categoriesAdmin,
       },
     ],
   },

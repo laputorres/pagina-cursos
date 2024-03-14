@@ -72,60 +72,60 @@ export default {
 
 
         const storeVideo = (index, file) => {
-    console.log("el archivo que se va a almacenar localmente es", file);
+            console.log("el archivo que se va a almacenar localmente es", file);
 
-    // Almacena el archivo localmente en el array formData
-    if (!formData.value.clases) {
-        formData.value.clases = [];
-    }
-    if (!formData.value.clases[index]) {
-        formData.value.clases[index] = {};
-    }
-    formData.value.clases[index].lectureVideo = file;
-
-    console.log('Archivos locales almacenados en formData:', formData.value.clases);
-};
-
-const uploadVideos = async (curseDocId) => {
-    try {
-        // Subir todos los archivos almacenados localmente en formData
-        const videoLinks = await Promise.all(formData.value.clases.map(async (clase, index) => {
-            const file = formData.value.clases[index].lectureVideo;
-            if (file) {
-                console.log(`Subiendo video para clase en el índice ${index}...`);
-
-                // Ruta de almacenamiento para el video
-                const storagePath = `curses/${formData.value.title}/lecture${index + 1}`;
-                const storageReference = storageRef(storage, storagePath);
-
-                // Subir el video al almacenamiento de Firebase
-                const uploadTaskSnapshot = await uploadBytes(storageReference, file);
-                console.log("Se subió el archivo con éxito: ", file);
-
-                // Obtener la URL de descarga del video
-                const downloadURL = await getDownloadURL(uploadTaskSnapshot.ref);
-
-                // Retornar la URL de descarga del video
-                return downloadURL;
+            // Almacena el archivo localmente en el array formData
+            if (!formData.value.clases) {
+                formData.value.clases = [];
             }
-            return null;
-        }));
+            if (!formData.value.clases[index]) {
+                formData.value.clases[index] = {};
+            }
+            formData.value.clases[index].lectureVideo = file;
 
-        // Añadir las URL de descarga de los videos al formulario
-        formData.value.clases.forEach((clase, index) => {
-            clase.lectureVideo = videoLinks[index];
-        });
+            console.log('Archivos locales almacenados en formData:', formData.value.clases);
+        };
 
-        console.log('Videos subidos con éxito.');
+        const uploadVideos = async (curseDocId) => {
+            try {
+                // Subir todos los archivos almacenados localmente en formData
+                const videoLinks = await Promise.all(formData.value.clases.map(async (clase, index) => {
+                    const file = formData.value.clases[index].lectureVideo;
+                    if (file) {
+                        console.log(`Subiendo video para clase en el índice ${index}...`);
 
-        // Limpiar los archivos locales almacenados en formData
-       
+                        // Ruta de almacenamiento para el video
+                        const storagePath = `curses/${formData.value.title}/lecture${index + 1}`;
+                        const storageReference = storageRef(storage, storagePath);
 
-    } catch (error) {
-        console.error('Error al subir videos:', error);
-        throw error;
-    }
-};
+                        // Subir el video al almacenamiento de Firebase
+                        const uploadTaskSnapshot = await uploadBytes(storageReference, file);
+                        console.log("Se subió el archivo con éxito: ", file);
+
+                        // Obtener la URL de descarga del video
+                        const downloadURL = await getDownloadURL(uploadTaskSnapshot.ref);
+
+                        // Retornar la URL de descarga del video
+                        return downloadURL;
+                    }
+                    return null;
+                }));
+
+                // Añadir las URL de descarga de los videos al formulario
+                formData.value.clases.forEach((clase, index) => {
+                    clase.lectureVideo = videoLinks[index];
+                });
+
+                console.log('Videos subidos con éxito.');
+
+                // Limpiar los archivos locales almacenados en formData
+
+
+            } catch (error) {
+                console.error('Error al subir videos:', error);
+                throw error;
+            }
+        };
 
 
 
@@ -154,7 +154,7 @@ const uploadVideos = async (curseDocId) => {
                 // Obtener el ID del documento principal
                 const curseDocId = curseDocRef.id;
                 console.log(`Curse document created with ID: ${curseDocId}`);
-                
+
 
                 await uploadVideos(curseDocId);
 
