@@ -26,7 +26,11 @@
                 </div>
             </div>
         </div>
-
+        <fwb-alert v-if="showAlert"
+            class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
+            type="success">
+            Data saved successfully.
+        </fwb-alert>
 
     </div>
 </template>
@@ -61,6 +65,7 @@ export default {
         const db = useFirestore();
         const cursesCollection = collection(db, 'curses');
         const storage = getStorage();
+        const showAlert = ref(true);
 
         const updateFormData = (data) => {
             formData.value = { ...formData.value, ...data };
@@ -149,6 +154,7 @@ export default {
                     description: formData.value.description,
                     membership: formData.value.membership || true,
                     paidPrice: formData.value.paidPrice || "",
+                    category: formData.value.category || "",
                 });
 
                 // Obtener el ID del documento principal
@@ -191,7 +197,8 @@ export default {
             updateFormData,
             registerCurse,
             videoFiles,
-            storeVideo
+            storeVideo,
+            showAlert
         };
     },
 }
