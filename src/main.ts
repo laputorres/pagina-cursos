@@ -32,20 +32,7 @@ waitForAuth.then(() => {
   console.log('Estado inicial del store:', store.state);
 });
 
-myRouter.beforeEach((to, from, next) => {
-  const isAuthenticated = store.getters.isAuthenticated;
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    // Redirige a la página de inicio de sesión solo si no está en la página de inicio de sesión o registro
-    if (to.path !== '/login' && to.path !== '/register') {
-      next('/login');
-    } else {
-      next(); // Evita bucle infinito si ya está en la página de inicio de sesión o registro
-    }
-  } else {
-    next();
-  }
-});
 
 
 
@@ -59,5 +46,3 @@ app.use({
     app.config.globalProperties.$auth = auth; // Agrega el objeto de autenticación a las propiedades globales
   },
 });
-
-

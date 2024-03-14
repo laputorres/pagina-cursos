@@ -1,4 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+//router/index.ts
+
+import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 import HomeView from "../views/homeView.vue";
 import DashboardView from "../views/DashboardView.vue";
 import ProfileDashboard from "../views/profileDashboard.vue";
@@ -11,7 +13,26 @@ import forgotPassword from '@/components/login/forgotPassword.vue'
 import categoriesAdmin from '@/components/dashboard/pages/categoriesAdmin.vue'
 import store from "@/store/index";
 
+const currentUser = () => store.getters.currentUser;
+
 const isAuthenticated = () => store.getters.isAuthenticated;
+const isAdmin = () => {
+  const user = currentUser();
+  return user && user.userType === 'admin';
+};
+
+const requiresAuth = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  await store.dispatch('fetchUserData');
+  if (isAuthenticated()) {
+    if (to.meta.requiresAdmin && !isAdmin()) {
+      next({ name: 'home' }); // Si el usuario no es admin y está intentando acceder a una ruta que requiere ser admin, redirige al dashboard normal
+    } else {
+      next(); // Permitir acceso
+    }
+  } else {
+    next({ name: 'login' }); // Redirigir al inicio de sesión si el usuario no está autenticado
+  }
+};
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -41,6 +62,7 @@ const routes: Array<RouteRecordRaw> = [
     component: ProfileDashboard,
     meta: {
       requiresAuth: true,
+      requiresAdmin: true,
     },
   },
   {
@@ -49,6 +71,7 @@ const routes: Array<RouteRecordRaw> = [
     component: DashboardView,
     meta: {
       requiresAuth: true,
+      requiresAdmin: true,
     },
     children: [
       
@@ -79,24 +102,6 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-
-  if (requiresAuth && !isAuthenticated()) {
-    next({ name: "login" }); // Redirige a la página de inicio de sesión si no está autenticado
-  } else if (requiresAuth && isAuthenticated()) {
-    // Verifica el tipo de usuario antes de permitir el acceso al dashboard
-    const userData = store.getters.currentUser;
-
-    if (userData && userData.userType === 'admin') {
-      next(); // El usuario es admin, permite el acceso al dashboard
-    } else {
-      next({ name: "home" }); // El usuario no es admin, redirige a la página de inicio
-    }
-  }
-  else {
-    next(); // Continúa con la navegación normal
-  }
-});
+router.beforeEach(requiresAuth);
 
 export default router;
