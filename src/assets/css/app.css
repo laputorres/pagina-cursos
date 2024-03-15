@@ -1,4 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
+body, span, a, h1, h2, h3, h4, h5, label, ::placeholder, input, select, td, th {
+    font-family: 'Open Sans', sans-serif; /* Utiliza Open Sans como la fuente principal */
+  }

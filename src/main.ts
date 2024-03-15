@@ -32,17 +32,3 @@ waitForAuth.then(() => {
   console.log('Estado inicial del store:', store.state);
 });
 
-
-
-
-
-// Usa el plugin firestorePlugin
-app.use(firestorePlugin);
-
-// Configura VueFireAuth directamente con el objeto de autenticación de Firebase
-// No es necesario importar createVueFire y VueFireAuth de vuefire
-app.use({
-  install: (app) => {
-    app.config.globalProperties.$auth = auth; // Agrega el objeto de autenticación a las propiedades globales
-  },
-});

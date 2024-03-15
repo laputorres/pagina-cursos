@@ -1,11 +1,11 @@
 <template>
     <div>
-        <fwb-heading tag="h4" color="text-blue-600" class="w-full mb-5 text-start">Price</fwb-heading>
+        <h4 class="w-full text-cyan-500 text-xl  font-bold mb-5 text-start">Price</h4>
         <form @input="emitFormData">
-            <fwb-checkbox v-model="membership" label="Membership Included" />
-            <fwb-checkbox v-model="paid" label="Paid" />
+            <fwb-checkbox v-model="membership" color="" label="Membership Included" />
+            <fwb-checkbox v-model="paid" class="mt-2" label="Paid" />
             <div v-if="showpaidPrice">
-                <fwb-input v-model="paidPrice" placeholder="cost" />
+                <fwb-input v-model="paidPrice" type="number" class="mt-2" placeholder="cost" />
             </div>
         </form>
     </div>
@@ -19,7 +19,7 @@ import { ref, watch } from 'vue'
 
 export default {
     components: {
-        FwbHeading,
+       
         FwbInput,
         FwbCheckbox
     },

@@ -1,11 +1,18 @@
 // store/index.ts
 import { createStore } from 'vuex';
-import { obtenerDatosUsuario } from '@/services/firestoreServices'
+import { obtenerDatosUsuario } from '@/services/firestoreServices';
 
+const USER_KEY = 'user';
+
+// Función para cargar el usuario desde el almacenamiento local
+const loadUserFromLocalStorage = () => {
+  const userData = localStorage.getItem(USER_KEY);
+  return userData ? JSON.parse(userData) : null;
+};
 
 export default createStore({
   state: {
-    user: null,
+    user: loadUserFromLocalStorage() || {}, // Cargar desde localStorage si está disponible
     isAuthenticated: false,
   },
   mutations: {
@@ -13,34 +20,41 @@ export default createStore({
       console.log('Mutación setUser llamada con:', user);
       state.user = user;
       state.isAuthenticated = !!user;
-      
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
     },
+    setIsAdmin(state, isAdmin) {
+      state.user.isAdmin = isAdmin;
+      localStorage.setItem(USER_KEY, JSON.stringify(state.user));
+    },
+    clearUser(state) {
+      state.user = {};
+      state.isAuthenticated = false;
+      localStorage.removeItem(USER_KEY);
+    }
   },
   actions: {
     async login(context, user) {
-      // Lógica de inicio de sesión (puedes llamar a tu función register aquí también)
-      // Después de autenticar al usuario, obtén los datos y actualiza el estado usando la mutación
+      // Lógica de inicio de sesión
       context.commit('setUser', user);
-      await context.dispatch('fetchUserData'); // Llamamos a la nueva acción para obtener y guardar los datos del usuario
-      
+      context.commit('setIsAdmin', user.userType === 'admin');
+      await context.dispatch('fetchUserData');
     },
-    async fetchUserData({ commit }) {
-      // Llama a tu función para obtener los datos del usuario desde Firebase
-      const userData = await obtenerDatosUsuario();
-      commit('setUser', userData);
+    async fetchUserData({ commit, state }) {
+      // Lógica para obtener los datos del usuario
+      if (state.isAuthenticated) {
+        const userData = await obtenerDatosUsuario();
+        commit('setUser', userData);
+        commit('setIsAdmin', userData.userType === 'admin');
+      }
     },
     logout(context) {
       // Lógica de cierre de sesión
-      // Después de cerrar sesión, actualiza el estado usando la mutación
-      context.commit('setUser', null);
-    },
+      context.commit('clearUser');
+    }
   },
   getters: {
     currentUser: state => state.user,
-    isAuthenticated: state => {
-      console.log('Getter isAuthenticated se está llamando con el estado:', state);
-      return state.isAuthenticated;
-    },
-  },
-
+    isAuthenticated: state => state.isAuthenticated,
+    isAdmin: state => state.user.isAdmin || false // Asegúrate de devolver false si no se estableció isAdmin
+  }
 });

@@ -7,6 +7,9 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
+    fontFamily: {
+      sans: ['Open Sans', 'sans-serif'], // Agrega tu fuente preferida aquí
+    },
     extend: {
       screens: {
         'xsm': '639px',

@@ -1,12 +1,12 @@
 <template>
     <div>
-        <fwb-heading tag="h3" color="text-blue-400" class="w-full mb-10 text-start">Create Curse</fwb-heading>
+        <h3 tag="h3" class="w-full text-cyan-500 text-[30px]  font-bold mb-10 text-start">Create Curse</h3>
 
         <div class="w-full flex max-sm:flex-col lg:flex-row justify-between">
-            <div class="w-[25%]">
-                <stepper />
+            <div class="w-[25%] relative max-sm:hidden">
+                <stepper :formData="formData"/>
             </div>
-            <div class="w-[65%]">
+            <div class="w-[65%] max-sm:w-full">
                 <div
                     class="px-10 py-10 mb-10  bg-white shadow-xl bg-clip-border rounded-2xl dark:bg-gray-800 dark:border-gray-700">
                     <titleDescription @update-form-data="updateFormData" />
@@ -20,16 +20,17 @@
                     class="px-10 py-10 mb-10  bg-white shadow-xl bg-clip-border rounded-2xl dark:bg-gray-800 dark:border-gray-700">
                     <priceComponent @update-form-data="updateFormData" />
                 </div>
-                <div
-                    class="px-10 py-10 mb-10  bg-white shadow-xl bg-clip-border rounded-2xl dark:bg-gray-800 dark:border-gray-700">
-                    <fwb-button @click="registerCurse" gradient="blue">Create Curse</fwb-button>
+                <div class="px-10 py-10 mb-5 justify-end flex  ">
+                    <button @click="registerCurse"
+                        class="block w-1/3 max-sm:w-2/3 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-cyan-500 hover:to-sky-600 hover:shadow-2xl mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Create
+                        Curse</button>
                 </div>
             </div>
         </div>
         <fwb-alert v-if="showAlert"
-            class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
-            type="success">
-            Data saved successfully.
+            class="fixed bottom-[3%] max-sm:w-[40vh] text-xl right-[3%] w-[30vw] h-[8vh] p-4 text-white rounded-lg bg-cyan-300"
+            closable icon type="success">
+            Curse saved successfully.
         </fwb-alert>
 
     </div>
@@ -37,7 +38,7 @@
 
 
 <script>
-import { FwbHeading, FwbButton } from 'flowbite-vue'
+
 import stepper from '../createCurses/menuStepper.vue'
 import titleDescription from '../createCurses/titleDescription.vue'
 import mediaVideos from '../createCurses/mediaVideos'
@@ -51,8 +52,6 @@ import { storage, ref as storageRef, uploadBytes, getStorage, getDownloadURL } f
 export default {
 
     components: {
-        FwbHeading,
-        FwbButton,
         stepper,
         titleDescription,
         mediaVideos,
@@ -65,7 +64,7 @@ export default {
         const db = useFirestore();
         const cursesCollection = collection(db, 'curses');
         const storage = getStorage();
-        const showAlert = ref(true);
+        const showAlert = ref(false);
 
         const updateFormData = (data) => {
             formData.value = { ...formData.value, ...data };
@@ -177,6 +176,10 @@ export default {
                             lectureVideo: clase.lectureVideo
                             // Agregar otros campos si es necesario
                         });
+                        showAlert.value = true;
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
                         console.log(`Lecture document created successfully for clase at index ${index}`);
                     }));
                 } else {

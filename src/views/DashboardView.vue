@@ -1,13 +1,13 @@
 <template>
   <div class="w-screen   h-screen fixed flex">
     <!-- Side bar -->
-    <div class="bg-gray-100 shadow-xl dashboard-sidebar" v-show="showSide">
+    <div class="bg-gray-100 shadow-xl dashboard-sidebar" v-show="showSide" >
 
       <!-- aqui va el menu -->
-      <navbarAdmin />
+      <navbarAdmin  :showSide="showSide" @toggleSideBar="toggleSideBar"/>
     </div>
-    <div class="w-full h-full bg-gray-50 overflow-scroll">
-      <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100 shadow-sm px-[30px] w-full sm:w-1/2 md:w-1/3 lg:w-[80vw] xl:w-[80vw] justify-between  py-[10px]">
+    <div class="w-full h-full bg-gray-50 overflow-auto">
+      <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100  px-[30px] w-full max-sm:w-full md:w-full lg:w-full xl:w-full justify-between  py-[10px]">
         <!-- Hambuger menu -->
         <div class="cursor-pointer w-[40px]" @click="toggleSideBar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

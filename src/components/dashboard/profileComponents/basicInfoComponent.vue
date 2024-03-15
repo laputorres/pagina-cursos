@@ -27,7 +27,7 @@
                 type="submit">Submit</fwb-button>
         </form>
         <fwb-alert v-if="showAlert"
-            class="fixed bottom-[3%] right-[3%] w-[30vw] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
+            class="fixed bottom-[3%] right-[3%] w-[30vw] h-[20vh] p-4 text-lg text-white rounded-lg bg-blue-500" closable icon
             type="success">
             Data saved successfully.
         </fwb-alert>

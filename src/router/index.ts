@@ -1,5 +1,3 @@
-//router/index.ts
-
 import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 import HomeView from "../views/homeView.vue";
 import DashboardView from "../views/DashboardView.vue";
@@ -16,23 +14,33 @@ import store from "@/store/index";
 const currentUser = () => store.getters.currentUser;
 
 const isAuthenticated = () => store.getters.isAuthenticated;
-const isAdmin = () => {
-  const user = currentUser();
-  return user && user.userType === 'admin';
-};
+const isAdmin = () => store.getters.isAdmin;
 
-const requiresAuth = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-  await store.dispatch('fetchUserData');
-  if (isAuthenticated()) {
-    if (to.meta.requiresAdmin && !isAdmin()) {
-      next({ name: 'home' }); // Si el usuario no es admin y está intentando acceder a una ruta que requiere ser admin, redirige al dashboard normal
-    } else {
-      next(); // Permitir acceso
-    }
+const requireAuth = (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  console.log("Guard requireAuth activated");
+  if (!isAuthenticated()) {
+    console.log("User not authenticated. Redirecting to login.");
+    next({ name: "login" });
   } else {
-    next({ name: 'login' }); // Redirigir al inicio de sesión si el usuario no está autenticado
+    console.log("User authenticated. Proceeding to next route.");
+    next();
   }
 };
+
+const requireAdmin = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+  console.log("Guard requireAdmin activated");
+  await store.dispatch('fetchUserData'); // Esperar a que se cargue la información del usuario
+  const user = currentUser();
+  if (user && user.isAdmin) {
+    console.log("User is admin. Proceeding to next route.");
+    next();
+  } else {
+    console.log("User is not admin. Redirecting to home.");
+    next({ name: "profileDashboard" });
+  }
+};
+
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -62,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
     component: ProfileDashboard,
     meta: {
       requiresAuth: true,
-      requiresAdmin: true,
+      
     },
   },
   {
@@ -71,8 +79,9 @@ const routes: Array<RouteRecordRaw> = [
     component: DashboardView,
     meta: {
       requiresAuth: true,
-      requiresAdmin: true,
+      isAdmin: true,
     },
+    beforeEnter: [requireAuth, requireAdmin],
     children: [
       
       {
@@ -93,15 +102,11 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-
-  
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
-router.beforeEach(requiresAuth);
 
 export default router;
