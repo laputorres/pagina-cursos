@@ -6,7 +6,7 @@
 import { ref } from 'vue';
 import { auth, db } from '@/FirebaseConfig';
 import { useFirestore } from 'vuefire';
-import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc, limit } from 'firebase/firestore';
 
 const obtenerDatosUsuario = async () => {
   const uid = auth.currentUser.uid;
@@ -133,6 +133,49 @@ const allCategories= async () => {
 };
 
 
+//Traer todos los cursos
+
+const allCurses= async (limitAmount = null) => {
+  const cursesCollection = collection(db, 'curses');
+   const cursesData = ref([]);
+ 
+   try {
+    
+    const querySnapshot = await getDocs(query(cursesCollection, limit(limitAmount)));
+
+    for (const doc of querySnapshot.docs) {
+      const curseData = doc.data();
+      const curse = {
+        title: curseData.title,
+        paidPrice: curseData.paidPrice,
+        membership: curseData.membership,
+        curseDescription: curseData.description,
+        curseDocId: doc.id,
+        curseCategory: curseData.category,
+        lectures: []
+      };
+
+      const lecturesSnapshot = await getDocs(collection(doc.ref, 'lectures'));
+
+      lecturesSnapshot.forEach((lectureDoc) => {
+        const lectureData = lectureDoc.data();
+        curse.lectures.push({
+          lectureTitle: lectureData.lectureTitle,
+          lectureDescription: lectureData.lectureDescription,
+          lectureVideo: lectureData.lectureVideo,
+          lectureDocId: lectureDoc.id,
+        });
+      });
+
+      cursesData.value.push(curse);
+    }
+  }catch (error) {
+     console.error('Error al obtener datos de todas los cursos', error);
+   }
+ 
+   return cursesData.value;
+ };
 
 
-export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories };
+
+export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories, allCurses };

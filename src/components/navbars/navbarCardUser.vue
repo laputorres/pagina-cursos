@@ -3,7 +3,7 @@
   <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
     <button type="button" class="inline-block flex items-center rounded-full bg-gray-300 line-height-[3.75rem]"
       id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-      <img class="rounded-full w-12 float-left h-12" :src="user.imgSrc || urlDefaultImage" alt="user photo">
+      <img class="rounded-full w-12 max-sm:w-10 border-cyan-600 border-[3px] max-sm:h-10 float-left h-12" :src="user.imgSrc || urlDefaultImage" alt="user photo">
       
     </button>
     <!-- Dropdown menu -->
