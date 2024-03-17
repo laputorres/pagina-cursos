@@ -1,17 +1,17 @@
 <template>
-  <div class="w-screen   h-screen fixed flex">
+  <div class="w-screen   h-screen fixed flex" >
     <!-- Side bar -->
-    <div class="bg-gray-100 shadow-xl dashboard-sidebar" v-show="showSide" >
+    <div class="bg-gray-100 dark:bg-gray-800 shadow-xl dashboard-sidebar" v-show="showSide" >
 
       <!-- aqui va el menu -->
       <navbarAdmin  :showSide="showSide" @toggleSideBar="toggleSideBar"/>
     </div>
-    <div class="w-full h-full bg-gray-50 overflow-auto">
-      <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100  px-[30px] w-full max-sm:w-full md:w-full lg:w-full xl:w-full justify-between  py-[10px]">
+    <div class="w-full h-full bg-gray-50 dark:bg-gray-800 overflow-auto">
+      <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100 dark:bg-gray-800  px-[30px] w-full max-sm:w-full md:w-full lg:w-full xl:w-full justify-between  py-[10px]">
         <!-- Hambuger menu -->
         <div class="cursor-pointer w-[40px]" @click="toggleSideBar">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-8 h-8">
+            stroke="currentColor" class="w-8 h-8 dark:text-gray-400">
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
           </svg>
@@ -25,8 +25,8 @@
         </div>
       </div>
       <!-- Dashboard content -->
-      <div class="h-[calc(100vh-50px)]] mt-[60px] bg-gray-100  p-[20px]">
-        <div class=" p-[20px] max-sm:p-[0px]  bg-gray-100 h-full min-h-[calc(100vh-115px)]">
+      <div class="h-[calc(100vh-50px)]] mt-[60px] bg-gray-100 dark:bg-gray-800 p-[20px]">
+        <div class=" p-[20px] max-sm:p-[0px]  bg-gray-100 dark:bg-gray-800 h-full min-h-[calc(100vh-115px)]">
 
           <router-view></router-view>
 
@@ -132,4 +132,3 @@ export default {
 };
 </script>
 
-<style></style>

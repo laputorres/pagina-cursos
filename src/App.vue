@@ -1,27 +1,36 @@
 <template>
- 
-  <router-view/>
+  <div :class="{ 'rtl': isRTL, 'dark': isDarkMode, 'lang': isChangeLang }">
+    <router-view/>
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { computed, watch } from 'vue';
+import { useStore } from 'vuex';
 
-nav {
-  padding: 30px;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+export default {
+  setup() {
+    const store = useStore();
+   
+    const isRTL = computed(() => store.state.isRTL);
+    const isDarkMode = computed(() => store.state.isDarkMode);
+    const isChangeLang = computed(() => store.state.isChangeLang);
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+    
+
+    return {
+      isRTL,
+      isDarkMode,
+      isChangeLang
+    };
+  },
+};
+</script>
+
+<style>
+.rtl {
+  direction: rtl; /* Aplica la dirección de derecha a izquierda */
 }
 </style>

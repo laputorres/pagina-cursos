@@ -7,6 +7,7 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   darkMode: 'class',
+  changeLang: 'class',
   theme: {
     fontFamily: {
       sans: ['Open Sans', 'sans-serif'], // Agrega tu fuente preferida aquí
@@ -14,6 +15,9 @@ module.exports = {
     extend: {
       screens: {
         'xsm': '639px',
+      },
+      direction: {
+        'rtl': 'rtl', // Agrega la clase 'rtl' para dirección de derecha a izquierda
       },
     },
   },

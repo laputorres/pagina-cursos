@@ -24,8 +24,8 @@
             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</router-link>
         </li>
         <li>
-          <a href="#"
-            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+          <a @click="toggleDirection"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Languaje</a>
         </li>
         <li>
           <form @submit.prevent="mysignOut">
@@ -47,11 +47,18 @@ import { auth } from '@/FirebaseConfig';
 import router from '@/router';
 import { ref, onMounted, computed } from 'vue';
 import { initFlowbite } from 'flowbite'
-import { useStore } from 'vuex';
+import { useStore, mapActions } from 'vuex';
 import { useFirebaseStorage, useStorageFileUrl } from 'vuefire';
 import { ref as storageRef } from '@firebase/storage'
 
 export default {
+  methods: {
+    ...mapActions(['toggleRTL']), // Mapea la acción de Vuex a los métodos del componente
+    toggleDirection() {
+      window.location.reload();
+      this.toggleRTL(); // Llama a la acción para cambiar la dirección del texto
+    }
+  },
   setup() {
     const showDropDown = ref(false);
     const showSide = ref(true);

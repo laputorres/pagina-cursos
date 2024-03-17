@@ -42,6 +42,7 @@ const requireAdmin = async (to: RouteLocationNormalized, from: RouteLocationNorm
 
 
 
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",

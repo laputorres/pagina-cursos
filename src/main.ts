@@ -8,9 +8,21 @@ import './assets/css/app.css';
 import { auth } from './FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import '../node_modules/flowbite-vue/dist/index.css'
+import { createI18n} from 'vue-i18n'
+
+
 
 const app = createApp(App);
 const myRouter = router;
+
+const i18n = createI18n({
+  locale: store.state.isRTL ? 'he' : 'en',
+  fallbackLocale: 'en',
+  messages: {
+    en: require('./assets/languajes/en.json'), // importa las traducciones en inglés
+    he: require('./assets/languajes/he.json')
+  }
+});
 
 const waitForAuth = new Promise<void>((resolve) => {
   onAuthStateChanged(auth, (user) => {
@@ -28,7 +40,7 @@ waitForAuth.then(() => {
   console.log('Estado actual del store:', store.state);
 
   // Montar la aplicación con el store y el router
-  app.use(store).use(router).mount('#app');
+  app.use(store).use(router).use(i18n).mount('#app');
   console.log('Estado inicial del store:', store.state);
 });
 
