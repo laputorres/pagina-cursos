@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 tag="h3" class="w-full text-cyan-500 text-[30px]  font-bold mb-10 text-start">Create Curse</h3>
+        <h3 tag="h3" class="w-full text-cyan-500 text-[30px]  font-bold mb-10 text-start">{{ $t('createCourse') }}</h3>
 
         <div class="w-full flex max-sm:flex-col lg:flex-row justify-between">
             <div class="w-[25%] relative max-sm:hidden">
@@ -22,15 +22,16 @@
                 </div>
                 <div class="px-10 py-10 mb-5 justify-end flex  ">
                     <button @click="registerCurse"
-                        class="block w-1/3 max-sm:w-2/3 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-cyan-500 hover:to-sky-600 hover:shadow-2xl mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Create
-                        Curse</button>
+                        class="block w-1/3 max-sm:w-2/3 bg-gradient-to-r from-sky-600 to-cyan-500 hover:from-cyan-500 hover:to-sky-600 hover:shadow-2xl mt-4 py-2 rounded-2xl text-white font-semibold mb-2">
+                    {{ $t('createCourse') }}
+                    </button>
                 </div>
             </div>
         </div>
         <fwb-alert v-if="showAlert"
             class="fixed bottom-[3%] max-sm:w-[40vh] text-xl right-[3%] w-[30vw] h-[8vh] p-4 text-white rounded-lg bg-cyan-300"
             closable icon type="success">
-            Curse saved successfully.
+            {{$t('CurseSavedSuccessfully')}}
         </fwb-alert>
 
     </div>

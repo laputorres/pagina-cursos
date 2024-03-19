@@ -23,6 +23,7 @@ export default createStore({
     setUser(state, user) {
       console.log('Mutación setUser llamada con:', user);
       state.user = user;
+      user.metadata = user.metadata || {};
       state.isAuthenticated = !!user;
       localStorage.setItem(USER_KEY, JSON.stringify(user));
     },

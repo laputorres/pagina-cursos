@@ -1,6 +1,51 @@
 {
-    "welcome": "ברוך הבא",
-    "hello": "שלום",
-    "goodbye": "להתראות"
-  }
-  
+  "titleHome": "התחל את המסע שלך עם ",
+  "titleHomeBold": "המותג",
+  "descriptionHome": "חקור את אוסף הקורסים שלנו שנבחר בקפידה, המיועד לעזור לך להשיג את המטרות שלך. תהנה מהתמחותם של מומחים שנבחרו ביד ומרכיבים בנות ידי מומחים, המותאמים לכל סוג של יזם.",
+  "searchHomeTitle": "מה אתה לומד?",
+  "searchHomePlaceholder": "טכנולוגיה, אמנות, עיצוב, וכו '",
+  "searchHomeDescription": "גלה תשובות, קורסים ומשאבים כדי להרחיב את הידע שלך ולהגיע למטרות החינוכיות שלך.",
+  "search": "חפש",
+  "lastupdated":"עודכן לאחרונה",
+  "users": "משתמשים",
+  "courses": "קורסים",
+  "lectures": "הרצאות",
+  "getStarted":"התחל",
+  "login": "התחברות",
+  "register": "הירשם",
+  "forgotPassword":"שכחת סיסמה?",
+  "save": "שמור",
+  "dashboard": "לוח בקרה",
+  "profile":"פרופיל",
+  "onlymembers": "רק חברים",
+"categories": "קטגוריות",
+"menu": "תפריט",
+"settings": "הגדרות",
+"title": "כותרת",
+"description": "תיאור",
+"writeYourDescription": "...כתוב את התיאור שלך",
+"writeYourMessage": "...כתוב את ההודעה שלך",
+"media": "מדיה",
+"price": "מחיר",
+"paid":"תשלום",
+"membership": "חברות",
+"membershipIncluded": "מובנה בחברות",
+"selectaCategory": "בחר קטגוריה",
+"lectureTitle": "כותרת ההרצאה",
+"enterlecturename": "הזן את שם ההרצאה",
+"uploadVideo": "העלה וידאו",
+"browse": "עיין",
+"filesToAttach": "קבצים לצרפה",
+"createCourse": "צור ארוחת ערב",
+"category": "קטגוריה",
+"CurseSavedSuccessfully": "הארוחה נשמרה בהצלחה.",
+"titleCurse": "כותרת הארוחה",
+"enterTitleCurse": "הזן את כותרת הארוחה",
+"logout": "התנתקות"
+
+
+
+
+
+
+}

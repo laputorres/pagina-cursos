@@ -19,7 +19,7 @@
         <ul class="flex flex-col py-4 space-y-1">
           <li class="px-5">
             <div class="flex flex-row items-center h-8">
-              <div class="text-sm font-light tracking-wide text-gray-200">Menu</div>
+              <div class="text-sm font-light tracking-wide text-gray-200">{{$t('menu')}}</div>
             </div>
           </li>
           <li>
@@ -35,7 +35,7 @@
                     stroke-linejoin="round" />
                 </svg>
               </span>
-              <span class="ml-2 text-sm tracking-wide truncate">Dashboard</span>
+              <span class="ml-2 text-sm tracking-wide truncate">{{$t('dashboard')}}</span>
 
             </router-link>
           </li>
@@ -97,7 +97,7 @@
                   </path>
                 </svg>
               </span>
-              <span class="ml-2 text-sm tracking-wide truncate">Create Curse</span>
+              <span class="ml-2 text-sm tracking-wide truncate">{{$t('createCourse')}}</span>
             </router-link>
           </li>
           <li>
@@ -111,7 +111,7 @@
                   </path>
                 </svg>
               </span>
-              <span class="ml-2 text-sm tracking-wide truncate">Categories</span>
+              <span class="ml-2 text-sm tracking-wide truncate">{{$t('categories')}}</span>
             </router-link>
           </li>
           <li>
@@ -125,7 +125,7 @@
                   </path>
                 </svg>
               </span>
-              <span class="ml-2 text-sm tracking-wide truncate">Users</span>
+              <span class="ml-2 text-sm tracking-wide truncate">{{$t('users')}}</span>
               <span
                 class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">15</span>
             </router-link>
@@ -142,7 +142,7 @@
                 </svg>
               </span>
 
-              <span class="ml-2 text-sm tracking-wide truncate">Profile</span>
+              <span class="ml-2 text-sm tracking-wide truncate">{{$t('profile')}}</span>
             </router-link>
           </li>
           <li>
@@ -176,7 +176,7 @@
                 </path>
               </svg>
             </span>
-            <span class="ml-2 text-sm tracking-wide truncate">Logout</span>
+            <span class="ml-2 text-sm tracking-wide truncate">{{$t('logout')}}</span>
           </button>
         </form>
       </div>

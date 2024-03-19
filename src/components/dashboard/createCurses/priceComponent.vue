@@ -1,9 +1,9 @@
 <template>
     <div>
-        <h4 class="w-full text-cyan-500 text-xl  font-bold mb-5 text-start">Price</h4>
+        <h4 class="w-full text-cyan-500 text-xl  font-bold mb-5 text-start">{{$t('price')}}</h4>
         <form @input="emitFormData">
-            <fwb-checkbox v-model="membership" color="" label="Membership Included" />
-            <fwb-checkbox v-model="paid" class="mt-2" label="Paid" />
+            <fwb-checkbox v-model="membership" color="" :label="$t('membershipIncluded')" />
+            <fwb-checkbox v-model="paid" class="mt-2" :label="$t('paid')" />
             <div v-if="showpaidPrice">
                 <fwb-input v-model="paidPrice" type="number" class="mt-2" placeholder="cost" />
             </div>

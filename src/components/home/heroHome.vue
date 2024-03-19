@@ -1,38 +1,58 @@
 <template>
-    <div class="relative flex flex-col-reverse py-16 lg:pt-0 lg:flex-col lg:pb-0">
-      <div class="inset-y-0 top-0 right-0 z-0 w-full max-w-xl px-4 mx-auto md:px-0 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-7/12 lg:max-w-full lg:absolute xl:px-0">
-        <svg class="absolute left-0 hidden h-full text-white transform -translate-x-1/2 lg:block" viewBox="0 0 100 100" fill="currentColor" preserveAspectRatio="none slice">
-          <path d="M50 0H100L50 100H0L50 0Z"></path>
-        </svg>
-        <img
-          class="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
-          src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
-          alt=""
-        />
+    <!-- Hero -->
+<div class="max-w-[85rem] min-h-[100vh] flex mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Grid -->
+  <div class="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
+    <div>
+      <h1 class="block text-3xl font-bold text-gray-800 sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white"> {{ $t('titleHome') }}<span class="text-blue-600">{{ $t('titleHomeBold') }}</span></h1>
+      <p class="mt-3 text-lg text-gray-800 dark:text-gray-400">{{ $t('descriptionHome') }}</p>
+
+      <!-- Buttons -->
+      <div class="mt-7 grid gap-3 w-full sm:inline-flex">
+        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
+          {{ $t('getStarted') }}
+          <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
+          Contact sales team
+        </a>
       </div>
-      <div class="relative flex flex-col items-start w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:max-w-screen-xl">
-        <div class="mb-16 lg:my-40 lg:max-w-lg lg:pr-5">
-          <p class="inline-block px-3 py-px mb-4 text-xs font-semibold  text-white bg-cyan-700 uppercase rounded-full bg-teal-accent-400">
-            {{ $t('welcome') }}
-          </p>
-          <h2 class="mb-5 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
-            Unlock Your Potential with  <br class="hidden md:block" />
-            Our Premium
-            <span class="inline-block text-cyan-600">Membership</span>
-          </h2>
-          <p class="pr-5 mb-5 text-base text-gray-700 md:text-lg">
-            Ready to take your learning to the next level? Join our exclusive community of passionate learners who are transforming their lives with unlimited knowledge.
-          </p>
-          <div class="flex justify-center items-center">
-            <a
-              href="/"
-              class="inline-flex items-center justify-center h-12 px-6 mr-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-cyan-600 hover:bg-cyan-700 focus:shadow-outline focus:outline-none"
-            >
-              Get started
-            </a>
-            <a href="/" aria-label="" class="inline-flex items-center font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-700">Learn more</a>
-          </div>
-        </div>
-      </div>
+      <!-- End Buttons -->
+
     </div>
+    <!-- End Col -->
+
+    <div class="relative ms-4">
+      <img class="w-full rounded-md" src="https://images.unsplash.com/photo-1665686377065-08ba896d16fd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&h=800&q=80" alt="Image Description">
+      <div class="absolute inset-0 -z-[1] bg-gradient-to-tr from-gray-200 via-white/0 to-white/0 size-full rounded-md mt-4 -mb-4 me-4 -ms-4 lg:mt-6 lg:-mb-6 lg:me-6 lg:-ms-6 dark:from-slate-800 dark:via-slate-900/0 dark:to-slate-900/0"></div>
+
+      <!-- SVG-->
+      <div class="absolute bottom-0 start-0">
+        <svg class="w-2/3 ms-auto h-auto text-white dark:text-slate-900" width="630" height="451" viewBox="0 0 630 451" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="531" y="352" width="99" height="99" fill="currentColor"/>
+          <rect x="140" y="352" width="106" height="99" fill="currentColor"/>
+          <rect x="482" y="402" width="64" height="49" fill="currentColor"/>
+          <rect x="433" y="402" width="63" height="49" fill="currentColor"/>
+          <rect x="384" y="352" width="49" height="50" fill="currentColor"/>
+          <rect x="531" y="328" width="50" height="50" fill="currentColor"/>
+          <rect x="99" y="303" width="49" height="58" fill="currentColor"/>
+          <rect x="99" y="352" width="49" height="50" fill="currentColor"/>
+          <rect x="99" y="392" width="49" height="59" fill="currentColor"/>
+          <rect x="44" y="402" width="66" height="49" fill="currentColor"/>
+          <rect x="234" y="402" width="62" height="49" fill="currentColor"/>
+          <rect x="334" y="303" width="50" height="49" fill="currentColor"/>
+          <rect x="581" width="49" height="49" fill="currentColor"/>
+          <rect x="581" width="49" height="64" fill="currentColor"/>
+          <rect x="482" y="123" width="49" height="49" fill="currentColor"/>
+          <rect x="507" y="124" width="49" height="24" fill="currentColor"/>
+          <rect x="531" y="49" width="99" height="99" fill="currentColor"/>
+        </svg>
+      </div>
+      <!-- End SVG-->
+    </div>
+    <!-- End Col -->
+  </div>
+  <!-- End Grid -->
+</div>
+<!-- End Hero -->
   </template>

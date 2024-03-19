@@ -1,10 +1,10 @@
 <template>
   <div class="w-screen   h-screen fixed flex" >
     <!-- Side bar -->
-    <div class="bg-gray-100 dark:bg-gray-800 shadow-xl dashboard-sidebar" v-show="showSide" >
+    <div  class="bg-gray-100 dark:bg-gray-800 shadow-xl dashboard-sidebar" v-show="showSide" >
 
       <!-- aqui va el menu -->
-      <navbarAdmin  :showSide="showSide" @toggleSideBar="toggleSideBar"/>
+      <navbarAdmin :class="{ 'max-sm:hidden': !toggleSideBar }"  :showSide="showSide" @toggleSideBar="toggleSideBar"/>
     </div>
     <div class="w-full h-full bg-gray-50 dark:bg-gray-800 overflow-auto">
       <div class="h-[80px] z-[1] fixed flex items-center bg-gray-100 dark:bg-gray-800  px-[30px] w-full max-sm:w-full md:w-full lg:w-full xl:w-full justify-between  py-[10px]">

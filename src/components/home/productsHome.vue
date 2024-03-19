@@ -3,7 +3,7 @@
         <section id="Projects" class=" overflow-hidden">
             <h3
                 class=" text-4xl text-start border-l-4 border-cyan-400 pl-4 my-10 font-extrabold tracking-tight text-sky-700 dark:text-white">
-                Last Updated</h3>
+                {{$t('lastupdated')}}</h3>
             <swiper :slidesPerView="4" :centeredSlides="true" :autoHeight="true" :spaceBetween="30" :loop="true"
                 :pagination="{
                 clickable: true,
@@ -65,28 +65,28 @@
                                         class=" mx-auto max-sm:max-w-[100%] md:max-w-full lg:max-w-screen-xl md:px-4 lg:px-4 lg:py-4">
                                         <div class="grid grid-cols-2 max-sm:grid-cols-4 max-sm:gap-2 gap-8 md:grid-cols-4">
                                             <div class="text-center md:border-r">
-                                                <h6 class="text-4xl max-sm:text-[14px] font-bold lg:text-5xl xl:text-sm">144K</h6>
+                                                <h6 class="max-sm:text-[14px] font-bold lg:text-lg xl:text-sm">144K</h6>
                                                 <p
                                                     class="text-[10px] font-medium tracking-widest text-gray-800 uppercase ">
-                                                    lectures
+                                                    {{$t('lectures')}}
                                                 </p>
                                             </div>
                                             <div class="text-center md:border-r">
-                                                <h6 class="text-4xl font-bold lg:text-5xl max-sm:text-[14px] xl:text-sm">12.9K</h6>
+                                                <h6 class=" font-bold lg:text-lg max-sm:text-[14px] xl:text-sm">12.9K</h6>
                                                 <p
                                                     class="text-[10px]  tracking-widest text-gray-800 uppercase ">
                                                     alumns
                                                 </p>
                                             </div>
                                             <div class="text-center md:border-r">
-                                                <h6 class="text-4xl font-bold lg:text-5xl max-sm:text-[14px] xl:text-sm">48.3K</h6>
+                                                <h6 class="font-bold lg:text-lg max-sm:text-[14px] xl:text-sm">48.3K</h6>
                                                 <p
                                                     class="text-[10px] font-medium tracking-widest text-gray-800 uppercase ">
-                                                    Users
+                                                    {{$t('users')}}
                                                 </p>
                                             </div>
                                             <div class="text-center">
-                                                <h6 class="text-4xl font-bold lg:text-5xl max-sm:text-[14px] xl:text-sm">24.5K</h6>
+                                                <h6 class="font-bold lg:text-lg max-sm:text-[14px] xl:text-sm">24.5K</h6>
                                                 <p
                                                     class="text-[10px] font-medium tracking-widest text-gray-800 uppercase ">
                                                     Cookies

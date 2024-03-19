@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /usuarios/{document} {
+      allow read, write: if request.auth != null;
+    }
+    
+    match /curses/{curseId} {
+      // Permitir la lectura solo a usuarios autenticados
+      allow read: if request.auth != null;
+      
+      // Permitir la escritura solo si el userType del usuario es 'admin'
+      allow write: if request.auth != null && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.userType == 'admin';
+    }
+
+    // Permitir la creación de documentos en la colección 'curses' por usuarios 'admin'
+    match /curses/{document=**} {
+     allow create: if request.auth !=  null;
+     
+      match /lectures/{lectureId} {
+        allow read: if request.auth != null;
+      }
+    }
+    
+     match /lectures/{lectureId} {
+        allow read: if request.auth != null;
+      }
+    
+     match /categories/{document} {
+      allow read, write, create: if request.auth != null;
+    }
+  }
+}

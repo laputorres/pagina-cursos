@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h4 tag="h4" class="w-full text-cyan-500 text-xl  font-bold mb-2 text-start">Title</h4>
+        <h4 tag="h4" class="w-full text-cyan-500 text-xl  font-bold mb-2 text-start">{{$t('title')}}</h4>
         <form @input="emitFormData">
-            <fwb-input v-model="title" class="w-full text-start mb-2 " placeholder="enter your first name" required />
-            <h4 tag="h4" class="w-full text-cyan-500 text-xl  font-bold mb-2 mt-5 text-start">Description</h4>
-            <fwb-textarea v-model="description" :rows="4" label="" placeholder="Write your message..." />
+            <fwb-input v-model="title" class="w-full text-start mb-2 " :placeholder="$t('enterTitleCurse')" required />
+            <h4 tag="h4" class="w-full text-cyan-500 text-xl  font-bold mb-2 mt-5 text-start">{{$t('description')}}</h4>
+            <fwb-textarea v-model="description" :rows="4" label="" :placeholder="$t('writeYourDescription')" />
             <select v-model="category" @change="emitFormData" class="w-full mt-5 rounded-md border-gray-300 text-gray-500">
-                <option value="">Select a category</option>
+                <option value="">{{$t('selectaCategory')}}</option>
                 <option v-for="(categoryItem, index) in categories" :key="index" :value="categoryItem.name">{{ categoryItem.name }}</option>    
             </select>
 

@@ -1,25 +1,32 @@
 <template>
-    <div class="relative flex isolate px-6 pt-14 lg:px-8 h-[100vh] bg-gradient-to-t from-cyan-800 to-sky-600 ">
+    <div class="relative flex isolate px-6 pt-14 pb-48 lg:px-8  bg-gradient-to-t from-cyan-800 to-sky-600 ">
 
         <div class="mx-auto w-full py-12 sm:py-48 lg:py-16">
             <div class="hidden sm:mb-8 sm:flex sm:justify-center">
                 <div
-                    class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                    Announcing our next round of funding. <a href="#" class="font-semibold text-indigo-600"><span
-                            class="absolute inset-0" aria-hidden="true"></span>Read more <span
-                            aria-hidden="true">&rarr;</span></a>
+                    class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-700 ring-1 ring-gray-900/10 font-bold hover:ring-gray-900/20">
+                    {{ $t('searchHomeDescription') }}
                 </div>
             </div>
             <div class="text-center">
-                <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">What do you learn?
+                <h1 class="text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">{{ $t('searchHomeTitle') }}
                 </h1>
 
                 <div class="mt-10 flex items-center justify-center gap-x-6">
                     <label
                         class="mx-auto relative bg-white min-w-sm max-w-3xl w-full flex flex-col md:flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-2xl focus-within:border-gray-300"
                         for="search-bar">
-                        <input id="search-bar" placeholder="tegnology, art, design, etc."
+                        <input id="search-bar" v-model="searchQuery" @input="searchCourses"
+                            :placeholder="$t('searchHomePlaceholder')"
                             class="px-6 py-2 w-full rounded-md flex-1 outline-none bg-white">
+
+                        <!-- Lista de resultados de la búsqueda -->
+                        <ul v-if="searchResults.length > 0" class="absolute bg-white w-full mt-1 rounded-md shadow-lg">
+                            <li v-for="course in searchResults" :key="course.id" @click="selectCourse(course)"
+                                class="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                                {{ course.title }}
+                            </li>
+                        </ul>
                         <button
                             class="w-full md:w-auto px-6 py-3 bg-gray-400  text-white fill-white active:scale-95 duration-100 border will-change-transform overflow-hidden relative rounded-xl transition-all disabled:opacity-70">
 
@@ -39,7 +46,7 @@
 
                                 <div class="flex items-center transition-all opacity-1 valid:"><span
                                         class="text-sm font-semibold whitespace-nowrap truncate mx-auto">
-                                        Search
+                                        {{ $t('search') }}
                                     </span>
                                 </div>
 
@@ -50,12 +57,11 @@
                 </div>
             </div>
             <div class="w-full">
-                <h2 class="font-os text-lg font-bold">Categories</h2>
-                <ul  class="flex items-start flex-wrap justify-evenly mt-4">
+                <ul class="flex items-start flex-wrap md:w-[60vw] m-auto mt-10 justify-evenly ">
                     <li v-for="category in categories" :key="category.categoryDocId" class="flex mx-1">
-                        <a class="p-2 px-3 border-white mb-4 rounded font-xl hover:bg-transparent w-[200px] hover:border-cyan-400 border bg-cyN -400/25 text-white"
+                        <a class="p-2 px-3 border-gray-400 mb-4 rounded font-xl hover:bg-transparent w-fit hover:border-cyan-600 border bg-cyN -400/25 text-gray-200"
                             href="category/all">
-                            {{category.name}}
+                            {{ category.name }}
                         </a>
                     </li>
                 </ul>
@@ -66,26 +72,41 @@
 </template>
 
 <script>
-import { allCategories } from '../../services/firestoreServices.js';
+import { allCategories, allCurses } from '../../services/firestoreServices.js';
+import { ref, onMounted } from 'vue';
 
-import {ref, onMounted} from 'vue'
 export default {
-    setup(){
-
+    setup() {
         const categories = ref("");
+        const searchQuery = ref('');
+        const courses = ref([]);
+        const searchResults = ref([]);
 
-        onMounted(async() => {
+        onMounted(async () => {
             categories.value = await allCategories();
-            console.log("categorias encontradas: ", categories.value)
+            courses.value = await allCurses(100);
         });
-        
-        return{
+
+        // Función para buscar coincidencias de cursos
+        const searchCourses = () => {
+            searchResults.value = courses.value.filter(course => {
+                return course.title.toLowerCase().includes(searchQuery.value.toLowerCase());
+            });
+        };
+
+        // Función para seleccionar un curso de la lista
+        const selectCourse = (course) => {
+            // Haz algo con el curso seleccionado, como redirigir a su página de detalles
+            console.log('Selected course:', course);
+        };
+
+        return {
+            searchQuery,
+            searchResults,
+            searchCourses,
+            selectCourse,
             categories
-        }
-    
+        };
     }
-
-
 }
-
 </script>
