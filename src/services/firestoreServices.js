@@ -177,5 +177,46 @@ const allCurses= async (limitAmount = null) => {
  };
 
 
+ // Traer precios de membresias
 
-export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories, allCurses };
+  const membershipPrices = async () =>{
+    const pricesCollection = collection(db, 'products');
+    const pricesData = ref([]);
+
+    try {
+    
+      const querySnapshot = await getDocs(query(pricesCollection, where("active", "==", true)));
+  
+      for (const doc of querySnapshot.docs) {
+        const priceData = doc.data();
+        const price = {
+          name: priceData.name,
+          priceDocId: doc.id,
+          prices: []
+        };
+  
+        const pricesSnapshot = await getDocs(collection(doc.ref, 'prices'));
+  
+        pricesSnapshot.forEach((priceDoc) => {
+          const priceData = priceDoc.data();
+          price.prices.push({
+            unitAmount: priceData.unit_amount,
+            currency: priceData.currency,
+            interval: priceData.interval,
+            lectureDocId: priceDoc.id,
+          });
+        });
+  
+        pricesData.value.push(price);
+      }
+    }catch (error) {
+       console.error('Error al obtener datos de todas los precios', error);
+     }
+   
+     return pricesData.value;
+
+  }
+
+
+
+export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories, allCurses, membershipPrices };

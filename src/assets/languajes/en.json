@@ -41,5 +41,8 @@
   "CurseSavedSuccessfully": "Curse saved successfully.",
   "titleCurse": "Curse Title",
   "enterTitleCurse": "Enter Curse Title",
-  "logout": "Logout"
+  "logout": "Logout",
+  "english": "English",
+  "hebrew": "Hebrew",
+  "allcategories": "All Categories"
 }

@@ -9,7 +9,9 @@ import usersComponent from '@/components/dashboard/pages/usersComponent.vue';
 import createCursePage from '@/components/dashboard/pages/createCursePage.vue';
 import forgotPassword from '@/components/login/forgotPassword.vue'
 import categoriesAdmin from '@/components/dashboard/pages/categoriesAdmin.vue'
+import checkoutView from '@/views/checkoutView.vue'
 import store from "@/store/index";
+import CategoriesView from "@/views/categoriesView.vue";
 
 const currentUser = () => store.getters.currentUser;
 
@@ -63,6 +65,17 @@ const routes: Array<RouteRecordRaw> = [
     path: "/forgot-password",
     name: "forgotPassword",
     component: forgotPassword,
+  },
+  {
+    path: "/checkout",
+    name: "checkout",
+    component: checkoutView,
+  },
+  {
+    path: "/all-categories",
+    name: "allCategories",
+    component: CategoriesView
+
   },
 
   {

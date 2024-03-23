@@ -57,7 +57,7 @@
                                                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                                             </svg>
                                         </span>
-                                        Only Members
+                                        {{$t('onlymembers')}}
                                     </p>
                                 </div>
                                 <div class="flex items-center max-sm:flex-wrap flex-col">

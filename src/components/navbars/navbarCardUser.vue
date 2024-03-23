@@ -3,7 +3,7 @@
   <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
     <button type="button" class="inline-block flex items-center rounded-full bg-gray-300 line-height-[3.75rem]"
       id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-      <img class="rounded-full w-12 max-sm:w-10 border-cyan-600 border-[3px] max-sm:h-10 float-left h-12" :src="user.imgSrc || urlDefaultImage" alt="user photo">
+      <img class="rounded-full w-8  h-8 max-sm:w-10  max-sm:h-10 float-left" :src="user.imgSrc || urlDefaultImage" alt="user photo">
       
     </button>
     <!-- Dropdown menu -->
@@ -30,8 +30,8 @@
         <li>
           <form @submit.prevent="mysignOut">
             <button type="submit"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
-              out</button>
+              class="block px-4 py-2 text-sm text-gray-700 m-auto bg-red-400 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+              {{ $t('logout') }}</button>
           </form>
         </li>
       </ul>
@@ -53,10 +53,10 @@ import { ref as storageRef } from '@firebase/storage'
 
 export default {
   methods: {
-    ...mapActions(['toggleRTL']), // Mapea la acción de Vuex a los métodos del componente
+    ...mapActions(['toggleRTL']),
     toggleDirection() {
       window.location.reload();
-      this.toggleRTL(); // Llama a la acción para cambiar la dirección del texto
+      this.toggleRTL();
     }
   },
   setup() {
