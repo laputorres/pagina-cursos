@@ -10,14 +10,22 @@ module.exports = {
   changeLang: 'class',
   theme: {
     fontFamily: {
-      sans: ['Open Sans', 'sans-serif'], // Agrega tu fuente preferida aquí
+      sans: ['Open Sans', 'sans-serif'],
     },
     extend: {
       screens: {
         'xsm': '639px',
       },
       direction: {
-        'rtl': 'rtl', // Agrega la clase 'rtl' para dirección de derecha a izquierda
+        'rtl': 'rtl',
+      },
+      colors: {
+        custom1: {
+          DEFAULT: '#116a3e',
+          light: '#0dac5b',
+          dark: '#105735'
+        },
+        customRed: '#ff0000', // Otra forma de definir un color personalizado
       },
     },
   },

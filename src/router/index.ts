@@ -12,6 +12,7 @@ import categoriesAdmin from '@/components/dashboard/pages/categoriesAdmin.vue'
 import checkoutView from '@/views/checkoutView.vue'
 import store from "@/store/index";
 import CategoriesView from "@/views/categoriesView.vue";
+import courseView from '@/views/courseView.vue'
 
 const currentUser = () => store.getters.currentUser;
 
@@ -76,6 +77,13 @@ const routes: Array<RouteRecordRaw> = [
     name: "allCategories",
     component: CategoriesView
 
+  },
+
+  {
+    path: '/courses/:productName', // La parte `:productId` indica que es una parte variable de la URL
+    name: 'ProductView',
+    component: courseView,
+    props: true,
   },
 
   {

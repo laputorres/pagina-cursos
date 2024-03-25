@@ -1,5 +1,5 @@
 {
-  "titleHome": "Start your journey with ",
+  "titleHome": "Build. Review. Ship. ",
   "titleHomeBold": "Marca",
   "descriptionHome": "Explore our curated collection of courses designed to help you achieve your goals. Benefit from the expertise of hand-picked professionals and expertly crafted components tailored for every kind of entrepreneur.",
   "searchHomeTitle": "What do you learn?",
@@ -44,5 +44,7 @@
   "logout": "Logout",
   "english": "English",
   "hebrew": "Hebrew",
-  "allcategories": "All Categories"
+  "allcategories": "All Categories",
+  "aboutUs": "About Us",
+  "contact": "Contact"
 }

@@ -2,7 +2,7 @@
     <div>
         <section id="Projects" class=" overflow-hidden">
             <h3
-                class=" text-4xl text-start border-l-4 border-cyan-400 pl-4 my-10 font-extrabold tracking-tight text-sky-700 dark:text-white">
+                class=" text-4xl text-start border-l-4 border-custom1-light pl-4 my-10 font-extrabold tracking-tight text-custom1 dark:text-white">
                 {{$t('lastupdated')}}</h3>
             <swiper :slidesPerView="4" :centeredSlides="true" :autoHeight="true" :spaceBetween="30" :loop="true"
                 :pagination="{
@@ -28,19 +28,19 @@
             }" :modules="modules" class="mySwiper w-[100vw] h-[50vh] max-sm:w-[88vw] overflow-hidden">
                 <swiper-slide v-for="curse in curses" :key="curse.curseDocid" class="m-0 mr-0!important">
                     <div class="w-[100%] bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                        <a href="#">
+                        <router-link :to="'/courses/' + curse.title.replace(/ /g, '-')" :productName="curse.title">
                             <img src="https://images.unsplash.com/photo-1646753522408-077ef9839300?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NjZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
                                 alt="Product" class="h-40  w-[100%] object-cover rounded-t-xl" />
                             <div class="px-4 py-3  w-[100%]">
                                 <div class="flex justify-between items-center">
                                     <div class=" text-start">
-                                        <span class="text-gray-400 bg-cyan-100 p-1 rounded-md mr-3 uppercase text-xs">{{ curse.curseCategory
+                                        <span class="text-white bg-custom1-light p-1 rounded-md mr-3 uppercase text-xs">{{ curse.curseCategory
                                             }}</span>
                                         <p class="text-lg font-bold text-black truncate block capitalize">{{ curse.title
                                             }}</p>
                                     </div>
                                     <p v-if="curse.membership = true"
-                                        class="bg-cyan-700 py-2 px-1 w-1/3 h-[35px] flex items-center rounded-md text-[10px] text-white">
+                                        class="bg-custom1 py-2 px-1 w-1/3 h-[35px] flex items-center rounded-md text-[10px] text-white">
                                         <span class=" font-bold text-white text-center py-1 px-2 text-[10px] rounded">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14"
                                                 height="14" color="#ffffff" fill="none">
@@ -96,7 +96,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </router-link>
                     </div>
                 </swiper-slide>
             </swiper>

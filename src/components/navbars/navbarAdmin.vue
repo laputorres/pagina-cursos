@@ -1,12 +1,11 @@
 <template>
-  <!-- give the sidebar z-50 class so its higher than the navbar if you want to see the logo -->
-  <!-- you will need to add a little "X" button next to the logo in order to close it though -->
-  <div class="w-[60vw] rounded-[30px] max-sm:absolute m-2 max-sm:m-0 md:w-1/3 lg:w-64 max-sm:h-full h-[97vh] max-sm:h-[100dvh]  max-sm:rounded-none   md:top-0 md:left-0  lg:block bg-blue z-30"
+  
+  <div class="w-[60vw] rounded-[30px] max-sm:absolute m-2 max-sm:m-0 md:w-1/3 lg:w-64  h-[97vh] max-sm:h-[100dvh]  max-sm:rounded-none   md:top-0 md:left-0  lg:block bg-blue z-30"
     :class="sideBarOpen ? '' : 'hidden'" id="main-nav" @click="handleClickOutside">
 
-    <!-- component -->
+    
 
-    <div class=" flex flex-col top-0 left-0 w-64  bg-gradient-to-r from-cyan-600 to-sky-700 h-full max-sm:rounded-none  rounded-2xl">
+    <div class=" flex flex-col top-0 left-0 w-64  bg-custom1  h-full max-sm:rounded-none  rounded-2xl">
       <div class="flex items-center justify-center max-sm:justify-between h-14 ">
         <router-link to="/" class="font-semibold text-3xl text-center text-gray-100 pl-4">LOGO</router-link>
         <button @click="$emit('toggleSideBar')" class="hidden max-sm:block max-sm:mr-3">
@@ -24,7 +23,7 @@
           </li>
           <li>
             <router-link to="/dashboard"
-              class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-cyan-600 text-white  border-l-4 border-transparent hover:rounded-2xl hover:mx-5 pr-6">
+              class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-custom1-dark text-white  border-l-4 border-transparent hover:rounded-2xl hover:mx-5 pr-6">
               <span class="inline-flex justify-center items-center ml-4">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff"
                   fill="none">

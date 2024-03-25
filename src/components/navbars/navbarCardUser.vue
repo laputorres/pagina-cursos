@@ -42,8 +42,8 @@
 </template>
 
 <script>
-import { signOut } from 'firebase/auth';
 import { auth } from '@/FirebaseConfig';
+import { signOut } from 'firebase/auth';
 import router from '@/router';
 import { ref, onMounted, computed } from 'vue';
 import { initFlowbite } from 'flowbite'
