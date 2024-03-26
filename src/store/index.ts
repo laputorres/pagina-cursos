@@ -13,11 +13,13 @@ const loadUserFromLocalStorage = () => {
 
 const user = loadUserFromLocalStorage() || {};
 const isRTL = localStorage.getItem('isRTL') === 'true';
+const isDarkMode = localStorage.getItem('isDarkMode') === 'true';
 export default createStore({
   state: {
     user: loadUserFromLocalStorage() || {}, // Cargar desde localStorage si está disponible
     isAuthenticated: false,
-    isRTL
+    isRTL,
+    isDarkMode
   },
   mutations: {
     setUser(state, user) {
@@ -38,6 +40,9 @@ export default createStore({
     },
     toggleRTL(state) {
       state.isRTL = !state.isRTL; // Cambia el estado de la dirección del texto
+    },
+    toggleDarkMode(state){
+      state.isDarkMode = !state.isDarkMode;
     }
   },
   actions: {
@@ -63,11 +68,16 @@ export default createStore({
       state.isRTL = !state.isRTL;
       localStorage.setItem('isRTL', state.isRTL.toString());
     },
+    toggleDarkMode({ state }){
+      state.isDarkMode = !state.isDarkMode;
+      localStorage.setItem('isDarkMode', state.isDarkMode.toString());
+    },
   },
   getters: {
     currentUser: state => state.user,
     isAuthenticated: state => state.isAuthenticated,
     isAdmin: state => state.user.isAdmin || false, // Asegúrate de devolver false si no se estableció isAdmin
-    isRTL: state => state.isRTL
+    isRTL: state => state.isRTL,
+    isDarkMode: state => state.isDarkMode
   }
 });

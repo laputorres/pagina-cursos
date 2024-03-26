@@ -176,6 +176,49 @@ const allCurses= async (limitAmount = null) => {
    return cursesData.value;
  };
 
+// traer curso por nombre
+
+const getCurseByName = async (curseName) => {
+  const cursesCollection = collection(db, 'curses');
+  const querySnapshot = await getDocs(query(cursesCollection, where('title', '==', curseName)));
+  const cursesData = [];
+
+  for (const doc of querySnapshot.docs) {
+    const curseData = doc.data();
+    const curse = {
+      title: curseData.title,
+      paidPrice: curseData.paidPrice,
+      membership: curseData.membership,
+      curseDescription: curseData.description,
+      curseDocId: doc.id,
+      curseCategory: curseData.category,
+      lectures: []
+    };
+
+    const lecturesSnapshot = await getDocs(collection(doc.ref, 'lectures'));
+
+    lecturesSnapshot.forEach((lectureDoc) => {
+      const lectureData = lectureDoc.data();
+      curse.lectures.push({
+        lectureTitle: lectureData.lectureTitle,
+        lectureDescription: lectureData.lectureDescription,
+        lectureVideo: lectureData.lectureVideo,
+        lectureDocId: lectureDoc.id,
+      });
+    });
+
+    cursesData.push(curse);
+  }
+
+  console.log('Datos del curso obtenidos:', cursesData[0]);
+  return cursesData[0];
+};
+
+
+
+
+
+
 
  // Traer precios de membresias
 
@@ -219,4 +262,4 @@ const allCurses= async (limitAmount = null) => {
 
 
 
-export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories, allCurses, membershipPrices };
+export { obtenerDatosUsuario, obtenerDatosTodosUsuarios, updateUserData, allCategories, allCurses, membershipPrices, getCurseByName };

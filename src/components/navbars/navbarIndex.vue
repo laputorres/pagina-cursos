@@ -1,18 +1,18 @@
 <template>
-    <header class="bg-gray-200  relative z-20">
+    <header class=" absolute w-full   z-20">
         <!-- Navigation starts -->
-        <nav class="bg-white shadow h-auto">
-            <div class="mx-auto container  py-2 xl:py-0">
+        <nav class="bg-transparent  h-auto">
+            <div class="sm:mx-5   py-2 xl:py-0">
                 <div class="flex items-center justify-between max-sm:px-4">
                     <!-- navigation mobile-->
-                    <div class="inset-y-0 max-sm:order-2 left-0 flex items-center md:hidden">
+                    <div class="inset-y-0  max-sm:order-2 left-0 flex items-center md:hidden">
                         <div
                             class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-100 focus:outline-none transition duration-150 ease-in-out">
                             <div class="visible xl:hidden">
                                 <ul
-                                    class="p-2 border-r bg-white absolute rounded left-0 right-0 shadow mt-8 md:mt-8 hidden">
+                                    class="p-2 border-r bg-white dark:bg-gray-700  absolute rounded left-0 right-0 shadow mt-10 md:mt-8 hidden">
                                     <li
-                                        class="flex xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
+                                        class="flex xl:hidden cursor-pointer text-gray-600 dark:text-gray-200 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
                                         <router-link to="/dashboard" class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-grid" width="20" height="20"
@@ -27,7 +27,8 @@
                                             <span class="ml-2 font-bold">{{ $t('dashboard') }}</span>
                                         </router-link>
                                     </li>
-                                    <li class="xl:hidden flex-col cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex justify-center">
+                                    <li
+                                        class="xl:hidden flex-col cursor-pointer text-gray-600 dark:text-gray-200 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex justify-center">
                                         <router-link to="/all-categories" class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-puzzle" width="20" height="20"
@@ -42,7 +43,7 @@
                                         </router-link>
                                     </li>
                                     <li
-                                        class="xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                        class="xl:hidden cursor-pointer text-gray-600 dark:text-gray-200 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-compass" width="20" height="20"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
@@ -54,7 +55,7 @@
                                         <span class="ml-2 font-bold">{{ $t('aboutUs') }}</span>
                                     </li>
                                     <li
-                                        class="border-b border-gray-300 xl:hidden cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                        class="border-b border-gray-300 xl:hidden dark:text-gray-200 cursor-pointer text-gray-600 text-sm leading-3 tracking-normal pt-2 pb-4 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-code" width="20" height="20"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
@@ -67,12 +68,12 @@
                                         <span class="ml-2 font-bold">{{ $t('contact') }}</span>
                                     </li>
                                     <li
-                                        class="cursor-pointer  text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                        class="cursor-pointer  text-gray-600 dark:text-gray-200 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
                                         <div v-if="userAuthenticade" class="flex items-center">
                                             <div
                                                 class="w-12 cursor-pointer flex text-sm border-2 border-transparent rounded focus:outline-none focus:border-white transition duration-150 ease-in-out">
-                                                <img class="rounded h-10 w-10 object-cover" :src="user.imgSrc || urlDefaultImage"
-                                                    alt="logo" />
+                                                <img class="rounded h-10 w-10 object-cover"
+                                                    :src="user.imgSrc || urlDefaultImage" alt="logo" />
                                             </div>
                                             <p class="text-sm ml-2 cursor-pointer">{{ user.nombreUsuarioLogeado }}</p>
                                             <div class="sm:ml-2 text-white relative">
@@ -98,7 +99,7 @@
                                         </div>
                                     </li>
                                     <li
-                                        class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
+                                        class="cursor-pointer text-gray-600 dark:text-gray-200 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-user" width="20" height="20"
@@ -114,14 +115,14 @@
                                 </ul>
                                 <svg @click="MenuHandler($event, true)" aria-haspopup="true" aria-label="Main Menu"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="show-m-menu icon icon-tabler icon-tabler-menu" width="35" height="35"
+                                    class="show-m-menu icon icon-tabler icon-tabler-menu dark:text-gray-200" width="35" height="35"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z"></path>
                                     <line x1="4" y1="8" x2="20" y2="8"></line>
                                     <line x1="4" y1="16" x2="20" y2="16"></line>
                                 </svg>
-                                <div class="hidden close-m-menu text-gray-700" @click="MenuHandler($event, false)">
+                                <div class="hidden close-m-menu text-gray-700 dark:text-gray-200" @click="MenuHandler($event, false)">
                                     <svg aria-label="Close" xmlns="http://www.w3.org/2000/svg" width="31" height="31"
                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
                                         stroke-linecap="round" stroke-linejoin="round">
@@ -135,7 +136,8 @@
                     </div>
 
                     <!-- Desktop -->
-                    <div class="flex w-full sm:w-[15vw] max-sm:order-0  items-center sm:items-stretch justify-end max-sm:justify-start sm:justify-start">
+                    <div
+                        class="flex w-full sm:w-[15vw] max-sm:order-0  items-center sm:items-stretch justify-end max-sm:justify-start sm:justify-start">
                         <router-link to="/" class="flex items-center">
                             <svg aria-label="Home" id="logo" enable-background="new 0 0 300 300" height="44"
                                 viewBox="0 0 300 300" width="43" xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +154,7 @@
                     <div class="flex sm:w-[75vw] justify-between">
                         <div class="hidden md:flex">
                             <router-link to="/dashboard"
-                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                 <span class="mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-grid"
                                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
@@ -168,7 +170,7 @@
                                 {{ $t('dashboard') }}
                             </router-link>
                             <router-link to="/all-categories"
-                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 dark:text-gray-200 dark:hover:bg-gray-400 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                 <span class="mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-puzzle"
                                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
@@ -183,7 +185,7 @@
                                 {{ $t('courses') }}
                             </router-link>
                             <a href="javascript: void(0)"
-                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                 <span class="mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-compass"
                                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
@@ -197,7 +199,7 @@
                                 {{ $t('aboutUs') }}
                             </a>
                             <a href="javascript: void(0)"
-                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
+                                class="flex px-5 items-center py-6 text-sm leading-5 text-gray-700 dark:text-gray-200 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none transition duration-150 ease-in-out">
                                 <span class="mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code"
                                         width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
@@ -217,10 +219,10 @@
                             <div class="ml-6 relative">
                                 <div class="flex items-center relative" @click="dropdownHandler($event)">
                                     <ul
-                                        class="p-2 w-40 border-r bg-white absolute rounded right-0 shadow top-0 mt-16 hidden">
+                                        class="p-2 w-40 border-r bg-white dark:bg-gray-700 absolute rounded right-0 shadow top-0 mt-16 hidden">
                                         <li
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none">
-                                            <div class="flex items-center">
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 dark:text-gray-100 hover:bg-custom1 hover:text-gray-100 hover:rounded-xl focus:outline-none">
+                                            <div class="flex items-center justify-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     class="icon icon-tabler icon-tabler-user" width="20" height="20"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -233,7 +235,8 @@
                                             </div>
                                         </li>
                                         <li
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 focus:text-indigo-700 focus:outline-none flex items-center">
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 dark:text-gray-100 hover:bg-custom1 hover:text-gray-100 hover:rounded-xl focus:outline-none">
+                                           <div class="flex justify-center items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-help" width="20" height="20"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
@@ -244,9 +247,11 @@
                                                 <path d="M12 13.5a1.5 1.5 0 0 1 1 -1.5a2.6 2.6 0 1 0 -3 -4" />
                                             </svg>
                                             <span class="ml-2">Help Center</span>
+                                           </div>
                                         </li>
                                         <li
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 dark:text-gray-100 hover:bg-custom1 hover:text-gray-100 hover:rounded-xl focus:outline-none">
+                                           <div class="flex items-center justify-center">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-settings" width="20" height="20"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
@@ -257,10 +262,12 @@
                                                 <circle cx="12" cy="12" r="3" />
                                             </svg>
                                             <span class="ml-2">Account Settings</span>
+                                           </div>
                                         </li>
                                         <li @click="mysignOut"
-                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal mt-2 py-2 hover:text-indigo-700 flex items-center focus:text-indigo-700 focus:outline-none">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="cursor-pointer text-gray-600 text-sm leading-3 tracking-normal py-2 dark:text-gray-100 hover:bg-red-500 hover:text-gray-100 hover:rounded-xl focus:outline-none">
+                                            <div class="flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-settings" width="20" height="20"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
                                                 stroke-linecap="round" stroke-linejoin="round">
@@ -270,6 +277,7 @@
                                                 <circle cx="12" cy="12" r="3" />
                                             </svg>
                                             <span class="ml-2">Logout</span>
+                                            </div>
                                         </li>
                                     </ul>
                                     <div v-if="userAuthenticade" class="flex items-center">
@@ -278,7 +286,7 @@
                                             <img class="rounded-full h-10 w-10 object-cover"
                                                 :src="user.imgSrc || urlDefaultImage" alt="logo" />
                                         </div>
-                                        <div class="ml-2 text-gray-600">
+                                        <div class="ml-2 text-gray-600 dark:text-gray-200">
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="icon icon-tabler icon-tabler-chevron-down cursor-pointer"
                                                 width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5"
@@ -304,11 +312,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="relative order-1 sm:w-[5vw] m-auto  my-2">
-                        <button type="button"
-                            class=" flex items-center sm:m-auto rounded-full line-height-[3.75rem]"
-                            id="lenguaje-menu-button" aria-expanded="false"
-                            data-dropdown-toggle="lenguaje-dropdown" data-dropdown-placement="bottom">
+                    <div class="relative order-1 max-sm:w-[15vw] max-sm:mx-3 w-[4vw] m-auto  my-2">
+                        <button type="button" class=" flex items-center sm:m-auto rounded-full line-height-[3.75rem]"
+                            id="lenguaje-menu-button" aria-expanded="false" data-dropdown-toggle="lenguaje-dropdown"
+                            data-dropdown-placement="bottom">
                             <img v-if="!flagSelected" src="../../assets/english.svg" alt="">
                             <img v-else src="../../assets/hebrew.svg" alt="">
 
@@ -320,19 +327,42 @@
                             <ul class="py-2" aria-labelledby="lenguaje-menu-button">
                                 <li>
                                     <a @click="toggleDirection(false)"
-                                        class="flex gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                        class="flex cursor-pointer gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                         <img src="../../assets/english.svg" alt="" width="20px">
                                         {{ $t('english') }}</a>
                                 </li>
                                 <li>
                                     <a @click="toggleDirection(true)"
-                                        class=" px-4 gap-2 flex py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                                        class=" px-4 gap-2 flex cursor-pointer py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                                         <img src="../../assets/hebrew.svg" alt="" width="20px">
                                         {{ $t('hebrew') }}</a>
                                 </li>
 
                             </ul>
                         </div>
+                    </div>
+                    <div class="relative order-1 max-sm:w-[10vw] w-[4vw] m-auto  my-2">
+                        <button @click="toggleDarkModeAction()" type="button"
+                            class=" flex items-center dark:bg-white bg-gray-400 p-1 sm:m-auto rounded-full line-height-[3.75rem]"
+                            id="dark-mode-button">
+                            <svg v-if="currentIsDarkMode" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                                color="#f8e71c" fill="none">
+                                <path
+                                    d="M17 12C17 14.7614 14.7614 17 12 17C9.23858 17 7 14.7614 7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12Z"
+                                    stroke="currentColor" stroke-width="1.5" />
+                                <path
+                                    d="M12 2V3.5M12 20.5V22M19.0708 19.0713L18.0101 18.0106M5.98926 5.98926L4.9286 4.9286M22 12H20.5M3.5 12H2M19.0713 4.92871L18.0106 5.98937M5.98975 18.0107L4.92909 19.0714"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                            </svg>
+                            <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+                                color="#fff" fill="none">
+                                <path
+                                    d="M21.5 14.0784C20.3003 14.7189 18.9301 15.0821 17.4751 15.0821C12.7491 15.0821 8.91792 11.2509 8.91792 6.52485C8.91792 5.06986 9.28105 3.69968 9.92163 2.5C5.66765 3.49698 2.5 7.31513 2.5 11.8731C2.5 17.1899 6.8101 21.5 12.1269 21.5C16.6849 21.5 20.503 18.3324 21.5 14.0784Z"
+                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -360,6 +390,7 @@ export default {
         return {
             urlDefaultImage: '../assets/free-avatar-370-456322.webp',
             userAuthenticade: false,
+            currentIsDarkMode: false
         };
     },
     mounted() {
@@ -388,7 +419,12 @@ export default {
                 el.currentTarget.classList.add("hidden");
             }
         },
-        ...mapActions(['toggleRTL']),
+        ...mapActions(['toggleRTL', 'toggleDarkMode']),
+        toggleDarkModeAction() {
+            const currentIsDarkMode = this.$store.getters.isDarkMode;
+            this.toggleDarkMode(!currentIsDarkMode);
+            this.currentIsDarkMode = !currentIsDarkMode;
+        },
         toggleDirection(isEnglish) {
             // Obtener el estado actual de isRTL
             const currentIsRTL = this.$store.getters.isRTL;
